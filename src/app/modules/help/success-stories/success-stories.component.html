@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-body">
+      <div class="about-container">
+          <app-section-title [title]="'our success stories'"></app-section-title>
+          <div class="row">
+            <div class="col-md-8 col-sm-8">
+              <div class="row">
+                <div class="col-md-12 vidTitle">
+                  <h5>Videos</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-sm-4" *ngFor="let p of successStories">
+                  <figure id="videoContainer" data-fullscreen="false">
+                    <video id="video" controls preload="metadata" poster="img/poster.jpg">
+                      <source src="{{p.videoUrl+'.mp4'}}" type="video/mp4">
+                      <source src="{{p.videoUrl+'.webm'}}" type="video/webm">
+                      <source src="{{p.videoUrl+'.ogg'}}" type="video/ogg">
+                      <!-- Offer download -->
+                      <!-- <a href="{{p.videoUrl+''}}.mp4">Download MP4</a> -->
+                    </video>
+                    <div id="video-controls" class="controls" data-state="hidden">
+                      <button id="playpause" type="button" data-state="play">Play/Pause</button>
+                      <button id="stop" type="button" data-state="stop">Stop</button>
+                      <div class="progress">
+                        <progress id="progress" value="0" min="0">
+                          <span id="progress-bar"></span>
+                        </progress>
+                      </div>
+                      <button id="mute" type="button" data-state="mute">Mute/Unmute</button>
+                      <button id="volinc" type="button" data-state="volup">Vol+</button>
+                      <button id="voldec" type="button" data-state="voldown">Vol-</button>
+                      <button id="fs" type="button" data-state="go-fullscreen">Fullscreen</button>
+                    </div>
+                  </figure>
+                </div>
+                <div class="col-md-12" *ngIf="successStories.length == 0">
+                  <app-section-title [title]="'No success stories at the moment'"></app-section-title>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="row">
+                <div class="col-md-12 vidTitle">
+                  <h5>Write-ups</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngFor="let n of WriteUps">{{n.title}}</li>
+                  </ul>
+                  <app-section-title *ngIf="WriteUps.length == 0" [title]="'No write ups at the moment'"></app-section-title>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+</div>

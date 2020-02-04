@@ -1,0 +1,17 @@
+.req-for-quotes {
+    padding: 40px 20px;
+    border: solid 7px #efefef;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.req-for-quotes-title {
+    font-weight: bold;
+    font-size: 26px;
+    text-transform: uppercase;
+}
+
+.rfq-btn-holder {
+    margin: 5px 0;
+    padding: 5px 0;
+}

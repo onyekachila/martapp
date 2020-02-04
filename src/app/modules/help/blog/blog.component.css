@@ -1,0 +1,30 @@
+.about-container {
+}
+.text-uppercase{
+  font-size: 24px;
+  color: #d57700;
+}
+
+.blogHead{
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.blogBody{
+  font-size: 14px;
+}
+
+.readMoreButton{
+  border-bottom-color: #00539f;
+  background-color: #d57700;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 12px;
+}
+
+.daTe{
+  text-align: left;
+  padding-left: 25px;
+  font-size: 18px;
+}

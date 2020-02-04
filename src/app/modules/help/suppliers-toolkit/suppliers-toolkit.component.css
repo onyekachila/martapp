@@ -1,0 +1,13 @@
+fa{
+  height: 24px;
+  width: 24px;
+}
+
+mat-panel-title{
+  font-size: 18px;
+}
+
+mat-panel-title>i{
+  margin-top: 2px;
+  width: 24px;
+}

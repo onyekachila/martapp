@@ -1,0 +1,148 @@
+<div class="">
+  <section class="" style="margin-top: -60px;">
+    <section class="" style="padding-top: 6rem !important">
+
+      <div class="card">
+        <div class="card-body">
+          <table class="w-100">
+            <tbody>
+              <tr class="row mr-0 ml-0">
+                <td class="col-xl-3 col-lg-4 col-md-4 col-sm-12 pl-0">
+                  <h4 class="text-dark mb-4">
+                    TOP CATEGORIES
+                  </h4>
+                  <app-loading [message]="''" *ngIf="!topCategories"></app-loading>
+                  <ul  class="list-group list-group-flush" *ngIf="topCategories">
+                    <li style="font-weight: 400"
+                      class="list-group-item list-group-item-action p-1 dropleft" *ngFor="let category of topCategories" routerLink="/category/{{category.id}}">
+                      <a class="dropleft-toggle text-dark d-block w-100">{{category.name}}</a>
+                      <div class="dropleft-content" style="top: 0%"
+                        *ngIf="hoverOnCategory && hoverOnCategory.ChildCategories.length>0">
+                        <ul style="display: flex; flex-direction: column; flex-wrap: wrap; height: 100%; width: 500px;">
+                          <li *ngFor="let cat of hoverOnCategory.ChildCategories"
+                            style="display: inline-block; width: 150px;" class="p-1">
+                            <a routerLink="/category/{{cat.id}}" target="_blank"
+                              class="is-clickable text-dark">{{cat.name}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="mt-4">
+                      <a class="text-link" routerLink="/root-categories">
+                        View All Categories <i class="fa fa-long-arrow-right"></i>
+                      </a>
+                  </div>
+                </td>
+                <td class="col-xl-6 col-lg-8 col-md-8 p-0 d-none d-md-block" style="max-height: 380px">
+                  <carousel>
+                    <slide *ngFor="let slide of Slides">
+                      <div style="width: 100%; height: 100%; max-height: 380px;" class="text-center">
+                        <img src="{{slide}}" alt="first slide" style="height: 100%; width: 100%; object-fit:cover;">
+                      </div>
+                    </slide>
+                  </carousel>
+                </td>
+                <td class="col-xl-3 pr-0 d-none tabset-buy-sup d-xl-block">
+                  <tabset role="tablist"type="pills">
+                    <ul class="nav nav-pills nav-justified  px-2 py-1 nav-buy-sup">
+                    <li class="nav-item">
+                      <a aria-controls="pills-buyer" aria-selected="true" class="nav-link active rounded-0 text-white" data-toggle="pill" href="#pills-buyer" id="pills-buyer-tab" role="tab">Buyers</a>
+                    </li>
+                      <li class="nav-item text-light">
+                        <a aria-controls="pills-supplier" aria-selected="false" class="nav-link rounded-0 " data-toggle="pill" href="#pills-supplier" id="pills-supplier-tab" role="tab">Suppliers</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content text-center" id="pills-tabContent">
+                      <div aria-labelledby="pills-home-tab" class="tab-pane fade justify-content-center active show" id="pills-buyer" role="tabpanel">
+                        <h6 class=" m-0 my-2 text-center" style="color: #c0b8b8">Sourcing Services</h6>
+                        <ul class="p-0"><li class="my-1"> AfriSure/Escrow</li>
+                          <li class="my-1"> AfriSource</li>
+                          <li  class="my-1"> Supplier Assessment</li>
+                          <li  class="my-1"> Inspection Service</li>
+                          <li class="my-1"> Product Request</li>
+                          <li class="my-1"> Payment Partners</li>
+                          <li  class="my-1"> Logistics Service</li>
+                        </ul>
+                      </div>
+                      <div  aria-labelledby="pills-supplier-tab" class="tab-pane fade text-center" id="pills-supplier" role="tabpanel">
+                        <h6 class="text-center m-0 my-2" style="color: #c0b8b8">Be a Verified Supplier</h6>
+                        <ul class="p-0">
+                          <li class="my-1"> More Buyer Trust</li>
+                          <li  class="my-1"> Higher Search Ranking</li>
+                          <li class="my-1"> Greater Visibility</li>
+                          <li  class="my-1"> Customer Alert</li></ul></div>
+                    </div>
+
+                  </tabset>
+                  <div class="position-absolute" style="bottom: -8px; font-size: small;">
+                    <a routerLink="/become-a-supplier" class="m-1 text-link">
+                      <i class="fa fa-info"></i> Quick Guide
+                    </a>
+                    <a *ngIf="!userService.checkIfUser()" routerLink="/auth/registration" class="m-1 text-link">
+                      <i class="fa fa-users"></i> Join Now
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+  </section>
+  <section class="">
+
+    <div class="mt-5">
+      <!-- <h4 class="text-primary">TOP PRODUCTS</h4> -->
+      <app-section-title [title]="'top products'"></app-section-title>
+      <div class="row mr-0 ml-0">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6 px-1" *ngFor="let product of topProducts">
+          <app-single-product-card [product]="product"></app-single-product-card>
+        </div>
+        <div class="p-5 pl-2 bg-white w-100" *ngIf="!topProducts">
+          <app-loading [message]="'Loading top products'"></app-loading>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <app-request-for-quote-banner></app-request-for-quote-banner>
+    </div>
+
+    <ng-container *ngIf="topCategories">
+      <app-home-page-category-card [category]="topCategories[0]"></app-home-page-category-card>
+      <app-home-page-category-card [category]="topCategories[1]"></app-home-page-category-card>
+      <app-home-page-category-card [category]="topCategories[2]"></app-home-page-category-card>
+      <app-home-page-category-card [category]="topCategories[3]"></app-home-page-category-card>
+    </ng-container>
+
+    <div class="mt-5 mb-5">
+      <!-- <h4 class="text-primary">TOP SUPPLIERS</h4> -->
+      <app-section-title [title]="'top suppliers'"></app-section-title>
+      <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6 px-1" *ngFor="let supplier of topSuppliers">
+          <app-single-store-card [store]="supplier"></app-single-store-card>
+        </div>
+        <div class="p-5 pl-2 bg-white w-100" *ngIf="!topSuppliers">
+          <app-loading [message]="'Loading top suppliers'"></app-loading>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+<section style="background-color: #E0E0E0; margin-bottom: -15px;">
+  <div class="container-fluid partner-con-fluid py-3">
+    <h5>OUR PARTNERS</h5>
+    <!-- <app-section-title [title]="'our partners'"></app-section-title> -->
+    <div  id="wrapper" class="our-partners">
+      <div *ngFor="let partner of Partners">
+        <a href="{{partner.link}}" target="_blank" title="{{partner.name}}">
+          <img width="100%"  src="{{partner.image}}">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

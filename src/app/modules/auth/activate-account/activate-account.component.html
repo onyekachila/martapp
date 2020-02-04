@@ -1,0 +1,32 @@
+<!-- <div class="card">
+  <div class="card-body"> -->
+    <app-section-title [title]="'account activation'"></app-section-title>
+    <app-loading *ngIf="loading && (successful == undefined)" [message]="'Activating account'"></app-loading>
+    <div *ngIf="successful == true" class="login-content">
+      <h4>Congratulations,</h4>
+      <h6 class="mb-5">Your account has been successfully activated! </h6>
+      <div class="btn-holder is-clickable" routerLink="/auth/login">
+        <div class="row">
+          <div class="col-md-2 col-sm-2 col-4">
+            <i class="fa fa-sign-in fa-3x"></i>
+          </div>
+          <div class="col-md-10 col-sm-10 col-8">
+            <h1>Login to Proceed</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="successful == false" class="login-content">
+      <h4>Sorry,</h4>
+      <h6 class="mb-5">Your account activation failed! </h6>
+      <p>
+        <button routerLink="/home" class="btn btn-outline-primary mr-2">
+          <i class="fa fa-home fa-3x"></i> Go Home
+        </button>
+        <button class="btn btn-outline-secondary mr-2" (click)="ActivateAccount()">
+          <i class="fa fa-refresh fa-3x"></i> Retry
+        </button>
+      </p>
+    </div>
+  <!-- </div>
+</div> -->

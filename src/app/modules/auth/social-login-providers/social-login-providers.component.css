@@ -1,0 +1,32 @@
+.sm-holder {
+    padding: 10px 0;
+    /* margin: 30px 0; */
+}
+
+h5 {
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 0.5px solid #f6f6f6;
+    line-height: 0.1em;
+    /* margin: 10px 0 20px; */
+    font-weight: 500;
+}
+
+.social {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    display: inline-block;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+}
+
+.social.facebook {
+    background-image: url(http://afrimart.com/sm/fb.png);
+}
+
+.social.google {
+    background-image: url(http://afrimart.com/sm/gp.png);
+}

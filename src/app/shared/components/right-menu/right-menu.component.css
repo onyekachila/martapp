@@ -1,0 +1,28 @@
+a {
+    color: black;
+    width: 100%;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+#parent {
+    display: table;
+}
+
+#parent #child {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.btn {
+    line-height: 1 !important;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: unset;
+    background-color: #669cbc;
+    color: #fff;
+}

@@ -1,0 +1,111 @@
+<div class="category-banner"
+  [ngStyle]="{'background-image': 'url(https://afrimart.com/sm/assets/images/category-banners/'+category.Name+'.png), url(https://afrimart.com/sm/assets/images/afrimart%20categories%20default.jpg)', 'background-position':'center', 'background-size':'cover', 'background-repeat':'no-repeat'}">
+  <div class="mask">
+    <div class="container-fluid">
+      <div class="banner-content">
+        {{category.Name}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="" style="min-height: 700px;">
+  <div class="main-layout row">
+    <div class="col-md-2 px-0 d-none d-md-block">
+      <div style="letter-spacing: .2px; font-size: 12px;">
+        <div class="category-menu-wrapper">
+          <div class="category-head">
+            {{'categories'|uppercase}}
+            <div style="margin-top: 6px; height: 2px; background: #333;"></div>
+          </div>
+          <div style="padding: 5px 0 20px;">
+            <div *ngIf="!category.ChildCategories" class="mt-3" style="margin-bottom: -20px">
+              <app-loading [message]="'Loading categories'"></app-loading>
+            </div>
+            <div class="dropleft" (mouseover)="hoverOnCategory=cat" *ngFor="let cat of category.ChildCategories">
+              <a class="menu-item dropleft-toggle" target="_blank" routerLink="/category/{{cat.Id}}">
+                <div class="category-menu-link">{{cat.Name}}</div>
+                <div class="icon-place" *ngIf="cat.ChildCategories.length>0">
+                  <div class="icon-wrapper"><i class="fa fa-caret-right font-weight-lighter"></i></div>
+                </div>
+              </a>
+              <div class="dropleft-content" style="padding: 20px 0px; margin-left: -10px;"
+                *ngIf="hoverOnCategory && hoverOnCategory.ChildCategories.length>0">
+                <ul style="display: flex; flex-direction: column; flex-wrap: wrap; height: 80%; width: 500px;">
+                  <li *ngFor="let cat of hoverOnCategory.ChildCategories" style="display: inline-block; width: 150px;"
+                    class="p-1"><a routerLink="/category/{{cat.Id}}" target="_blank"
+                      class="is-clickable text-dark">{{cat.Name}}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-12 px-0">
+      <section *ngIf="categoryProductsNum == undefined" class="category-product-section row mt-5 pt-5">
+        <app-loading [message]="'Loading category products'"></app-loading>
+      </section>
+      <section *ngIf="categoryProductsNum != undefined && categoryProductsNum==0"
+        class="category-product-section row mt-5 pt-5">
+        <div class="col-md-12 text-center">
+          <h3 class="p-3 mt-5 pt-5">No product(s) created in this category yet</h3>
+        </div>
+      </section>
+      <ng-container *ngFor="let cat of category.ChildCategories">
+        <section *ngIf="cat.Products && cat.Products.length>0" class="category-product-section card">
+          <div class="card-body p-0 pt-2 row">
+            <div class="col-lg-12">
+              <app-section-title class="font-weight-light" [title]="cat.Name"></app-section-title>
+            </div>
+            <div class="col-lg-12 pt-2 mb-3" style="border-radius: 10px;">
+              <a *ngFor="let ct of cat.ChildCategories" class="keywords-item" title="{{ct.Name}}"
+                routerLink="/category/{{ct.Id}}" target="_blank">
+                {{ct.Name}}
+              </a>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 px-1 mb-2 category-product"
+                  *ngFor="let prod of cat.Products; let i=index;">
+                  <div class="item-main bg-white">
+                    <div style="width: 100%" class="text-center">
+                      <a routerLink="/product/{{prod.ProductGuid}}" target="_blank">
+                        <img src="{{prod.ProductImages[0] ? prod.ProductImages[0].ImageUrl : null}}" alt="{{prod.Name}}"
+                          onError="this.src='../../../assets/images/default.png';" style="width:100%; max-width: 180px;"
+                          alt="{{prod.Name}}">
+                      </a>
+                    </div>
+                    <div class="p-2">
+                      <div class="name">
+                        <a title="{{prod.Name}}" target="_blank"
+                          style="font-size: 14px; line-height: 14px; color: rgba(0,0,0,.8);"
+                          routerLink="/product/{{prod.ProductGuid}}">
+                          {{prod.Name}}
+                        </a>
+                      </div>
+                      <div class="price">
+                        {{prod.MinimumPricePerUnit | currencyConversion:prod.DefaultCurrency.CurrencyCode |
+                    currency}}-
+                        {{prod.MaximumPricePerUnit | currencyConversion:prod.DefaultCurrency.CurrencyCode |
+                    currency}}
+                        / <span style="color: #666;">{{prod.PurchaseProductUnit.Name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12" *ngIf="cat.Products.length == ((cat.ProductPageNum+1)*8)">
+              <a class="btn btn-xs btn-outline-primary pull-right"
+                (click)="getSubCategoryProducts(cat.Id, cat.ProductPageNum+1)">
+                More Products
+              </a>
+            </div>
+          </div>
+
+        </section>
+      </ng-container>
+    </div>
+  </div>
+</div>

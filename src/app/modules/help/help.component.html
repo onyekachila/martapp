@@ -1,0 +1,23 @@
+<section class="help-container">
+    <div class="">
+        <div class="row">
+            <div class="col-md-3 mb-3 pr-2">
+                <!-- <app-section-title [title]="'Help Links'"></app-section-title> -->
+                <div class="list-group list-group-flush">
+                    <button (click)="scrollTo('pageDiv'); setHelpLinkTitle(link.title)" routerLink="{{link.url}}"
+                        *ngFor="let link of links" type="button" class="list-group-item list-group-item-action"> <i
+                            title="{{link.tooltip}}" class="{{link.icon}}"></i>
+                        &nbsp; {{ link.title }}</button>
+                </div>
+            </div>
+            <div class="col-md-9 mb-3 pl-2" id="pageDiv">
+                    <router-outlet></router-outlet>
+
+                <!-- <div class="card">
+                    <div class="card-body p-2 pt-4">
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>  

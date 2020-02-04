@@ -1,0 +1,134 @@
+<section class="section-auth min-vh-100 py-5">
+    <div class="">
+        <div class="row">
+            <!-- <div class="col-md-4 pt-5 d-none d-md-block">
+                <div class="ad-title-holder mt-3 mb-3 pb-3">
+                    <h2 class="text-uppercase">
+                        {{Content.heading}}
+                    </h2>
+                </div>
+                <div class="ad-content-holder border-top border-primary">
+                    <h5 [innerHTML]="Content.body">
+                    </h5>
+                    <div class="d-flex justify-content-between ad-info-holder">
+                        <h6 *ngFor="let subtext of Content.subTexts">
+                            {{subtext}}
+                        </h6>
+                    </div>
+                    <div class="row text-center ad-info-holder">
+                        <div class="col-md-3">
+                            <h6>
+                                Trade with confidence
+                            </h6>
+                        </div>
+                        <div class="col-md-3">
+                            <h6>
+                                Become a verified supplier
+                            </h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>
+                                Join africa's premier trading community
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-md-6 offset-md-3 col-sm-12">
+                <div class="card">
+                    <div class="card-body p-2 pt-4">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .section-auth {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+
+
+    .ad-title-holder h2 {
+        color: #fff;
+        font-weight: 900;
+        font-size: 55px;
+    }
+
+    .ad-title-holder h2 span {
+        color: #f8f8f8;
+        font-weight: 500;
+        font-size: 35px;
+    }
+
+    .ad-content-holder {
+        color: #fff;
+        background: rgba(0, 0, 0, .9);
+        padding: 30px 15px;
+        /* border-top: 6px solid #d57500; */
+        width: 85%;
+    }
+
+    .ad-info-holder {
+        margin: 40px 0 0 0;
+        padding: 30px 0 0 0;
+        border-top: 1px solid #121212;
+    }
+
+    .ad-info-holder h6 {
+        font-weight: 500;
+        font-size: 16px;
+        /* text-transform: uppercase; */
+    }
+
+    .ad-info-holder h6 span {
+        font-weight: 300;
+        font-size: 12px;
+    }
+
+    .ad-btn-holder {
+        margin: 20px 20px;
+        padding: 10px 20px;
+    }
+</style>

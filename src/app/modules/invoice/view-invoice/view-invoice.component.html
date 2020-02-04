@@ -1,0 +1,247 @@
+<div class="container-fluid">
+  <h6 *ngIf="!InvoiceDetail" class="bg-white p-5 pl-2">Fetching invoice <i class="fa fa-spin fa-spinner"></i></h6>
+  <ng-container *ngIf="InvoiceDetail">
+    <!-- <h4 class="text-primary"> INVOICE: {{InvoiceDetail.Id}} </h4> -->
+    <app-section-title [title]="'invoice: '+InvoiceDetail.Id"></app-section-title>
+    <div class="card">
+      <div class="card-body row">
+        <div class="col-md-12">
+          <div id="page-wrap">
+            <div id="header">
+              <span style="padding-top: 20px;">
+                <img id="image" src="assets/images/company-logo.png" alt="company logo" width="100" />
+              </span>
+              <span style="padding: 0 50px 20px 0;"></span>INVOICE
+            </div>
+
+            <div id="identity">
+              <div id="address">
+                <div id="c-address">
+                  <h4>{{InvoiceDetail.Supplier.Name}}</h4>
+                  {{InvoiceDetail.Supplier.LocationCountry.FullName}}
+                  <br>{{InvoiceDetail.Supplier.LocationCountry.Region}}
+                  <br>{{InvoiceDetail.Supplier.Email}} - {{InvoiceDetail.Supplier.PhoneNumber}}
+                </div>
+              </div>
+
+              <div id="inv">
+                <h4>INVOICE</h4>
+                <p># Afrimart-{{InvoiceDetail.Id}}</p>
+                <p>
+                  <br>
+                </p>
+                <h5>Balance Due</h5>
+                <p class="due">{{InvoiceDetail.Currency.Symbol}} {{getTotalAmount() | price}}</p>
+              </div>
+
+            </div>
+
+            <div style="clear:both"></div>
+
+            <div id="customer">
+
+              <div id="customer-title">
+                <strong>Bill To:</strong>
+                <br>{{InvoiceDetail.Buyer.FirstName}} {{InvoiceDetail.Buyer.LastName}}
+                <br> {{InvoiceDetail.Buyer.Email}} - {{InvoiceDetail.Buyer.PhoneNumber}}
+              </div>
+
+              <table id="meta">
+                <div id="inv">
+                  <h5>Invoice Date</h5>
+                  <p>
+                    {{InvoiceDetail.TimeGenerated | time}}
+                  </p>
+                </div>
+
+              </table>
+
+            </div>
+
+            <table id="items">
+
+              <tr>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Unit Cost</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+              <ng-container *ngFor="let product of InvoiceDetail.Products">
+                <tr class="item-row">
+                  <td class="item-name">
+                    <div class="delete-wpr">
+                      <div>{{product.Product.Name}}</div>
+                    </div>
+                  </td>
+                  <td class="description">
+                    <div>{{product.Specifications}}</div>
+                  </td>
+                  <td>
+                    <div class="cost">{{InvoiceDetail.Currency.Symbol}}{{product.Price | price}}</div>
+                  </td>
+                  <td>
+                    <div class="qty">{{product.Quantity}}</div>
+                  </td>
+                  <td>
+                    <span class="price">{{InvoiceDetail.Currency.Symbol}}{{product.Price*product.Quantity |
+                            price}}</span>
+                  </td>
+                </tr>
+              </ng-container>
+
+              <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Subtotal</td>
+                <td class="total-value">
+                  <div id="subtotal">{{InvoiceDetail.Currency.Symbol}}{{getTotalAmount() | price}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Total</td>
+                <td class="total-value">
+                  <div id="total">{{InvoiceDetail.Currency.Symbol}}{{getTotalAmount() | price}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Amount Paid</td>
+
+                <td class="total-value">
+                  <div id="paid">
+                    {{InvoiceDetail.Currency.Symbol}}
+                    <ng-container *ngIf="InvoiceDetail.TimePaid">{{getTotalAmount() | price}}</ng-container>
+                    <ng-container *ngIf="!InvoiceDetail.TimePaid">0.00</ng-container>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line balance">Balance Due</td>
+                <td class="total-value balance">
+                  <div class="due">{{InvoiceDetail.Currency.Symbol}}{{getTotalAmount() | price}}</div>
+                </td>
+              </tr>
+
+            </table>
+
+            <div id="terms">
+              <h5>Terms</h5>
+              <div>This invoice is only valid for {{InvoiceDetail.ValidityInWeeks}} weeks, if only payment hasn't
+                been made.
+                After which it'll be deleted.</div>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div>
+            <label for="">Set Delivery Address</label>
+            <br>
+            <form action="">
+              <div class="row form-group">
+                <div class="col-md-4 col-sm-4">
+                  Delivery Country
+                  <br>
+                  <select [disabled]="InvoiceDetail.TimePaid" class="form-control"
+                    [(ngModel)]="InvoiceDetail.LogisticsItem.ToCountryCode" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let c of AllCountries" [value]="c.ISOCode">{{c.FullName}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  Delivery City
+                  <br>
+                  <input [disabled]="InvoiceDetail.TimePaid" type="text" class="form-control" placeholder="City"
+                    [(ngModel)]="InvoiceDetail.LogisticsItem.ToCity" [ngModelOptions]="{standalone: true}">
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  Delivery Postal Code
+                  <br>
+                  <input [disabled]="InvoiceDetail.TimePaid" type="text" class="form-control" placeholder="Postal Code"
+                    [(ngModel)]="InvoiceDetail.LogisticsItem.ToPostalCode" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  Delivery Address
+                  <br>
+                  <input [disabled]="InvoiceDetail.TimePaid" type="text" class="form-control" placeholder="Address"
+                    [(ngModel)]="InvoiceDetail.LogisticsItem.ToAddress" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="row form-group" *ngIf="!InvoiceDetail.TimePaid">
+                <div class="col-md-12 pull-right">
+                  <span *ngIf="getEstimateErrorMessage" class="alert alert-danger">{{getEstimateErrorMessage}}</span>
+                  <button class=" btn btn-sm btn-primary" [disabled]="gettingEstimate||processing"
+                    (click)="getEstimatesFromLogisticChannels()">Get
+                    Estimates </button>
+                  <i class="fa fa-2x fa-spin fa-spinner" *ngIf="gettingEstimate"></i>
+                </div>
+              </div>
+            </form>
+
+            <ng-container *ngIf="LogisticsEstimates">
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label for="">Logistics Company</label>
+                  <br>
+                </div>
+                <div class="col-md-3">
+                  <input type="radio" name="dhl" value="dhl" checked>
+                  <img src="https://afrimart.com/shared/portal/logistics/dhl.png" width="100">
+                  <br> Weight Charge: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightCharge}}
+                  <br> Weight Charge Tax:
+                  {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightChargeTax}}
+                  <br> Tax: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.TaxAmount}}
+                  <br> Pickup Date: {{LogisticsEstimates.PickupDate}}
+                  <br> Delivery Date: {{LogisticsEstimates.DeliveryDate}}
+                </div>
+                <div class="col-md-3">
+                  <input type="radio" name="dhl" value="courierPlus">
+                  <img src="https://afrimart.com/shared/portal/logistics/courier_plus.jpg" width="100">
+                  <br> Weight Charge: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightCharge}}
+                  <br> Weight Charge Tax:
+                  {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightChargeTax}}
+                  <br> Tax: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.TaxAmount}}
+                  <br> Pickup Date: {{LogisticsEstimates.PickupDate}}
+                  <br> Delivery Date: {{LogisticsEstimates.DeliveryDate}}
+                </div>
+                <div class="col-md-3">
+                  <input type="radio" name="FedEx" value="FedEx">
+                  <img src="https://afrimart.com/shared/portal/logistics/fedex.png" width="100">
+                  <br> Weight Charge: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightCharge}}
+                  <br> Weight Charge Tax:
+                  {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightChargeTax}}
+                  <br> Tax: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.TaxAmount}}
+                  <br> Pickup Date: {{LogisticsEstimates.PickupDate}}
+                  <br> Delivery Date: {{LogisticsEstimates.DeliveryDate}}
+                </div>
+                <div class="col-md-3">
+                  <input type="radio" name="tabs" value="tabs">
+                  <img src="https://afrimart.com/shared/portal/logistics/tabs_logo.jpg" width="100" alt="">
+                  <br> Weight Charge: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightCharge}}
+                  <br> Weight Charge Tax:
+                  {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.WeightChargeTax}}
+                  <br> Tax: {{LogisticsEstimates.CurrencyCode}}{{LogisticsEstimates.TaxAmount}}
+                  <br> Pickup Date: {{LogisticsEstimates.PickupDate}}
+                  <br> Delivery Date: {{LogisticsEstimates.DeliveryDate}}
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 alert alert-danger" *ngIf="makePaymentErrorMessage">{{makePaymentErrorMessage}}
+                </div>
+                <div class="col-md-12">
+                  <button [disabled]="processing" (click)="updateLogisticsInfo()"
+                    class="btn btn-sm btn-outline-primary pull-right">MAKE
+                     PAYMENT <i class="fa fa-2x fa-spin fa-spinner" *ngIf="processing"></i>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

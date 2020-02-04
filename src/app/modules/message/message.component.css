@@ -1,0 +1,31 @@
+ul li:hover {
+    background-color: #eff !important;
+    color: #333;
+}
+
+.message-bubble {
+    max-width: 80%;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    font-size: 12px
+}
+
+time {
+    font-size: 70%;
+    font-weight: 70%;
+    /* font-style: italic; */
+}
+
+.scroll-container {
+    min-height: 350px;
+    max-height: 500px;
+    overflow: auto;
+    min-height: 350px;
+    max-height: 500px;
+    overflow: auto;
+}
+
+.message-bubble p {
+    margin-bottom: .5rem;
+}

@@ -1,0 +1,27 @@
+<!-- <h4 class="text-primary">REQUEST FOR QUOTES</h4> -->
+<app-section-title [title]="'request for quotes'"></app-section-title>
+<div class="row">
+  <div class="col-lg-8 p-1 d-none d-lg-block">
+    <div class="req-for-quotes-banner">
+      <div style="width: 100%; height: 100%;" class="text-center">
+        <img src="assets/images/slideRfq.png" style="height: 100%; width: 100%; object-fit:cover;">
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 p-1 col-md-12 col-sm-12 req-for-quotes">
+    <h2 class="req-for-quotes-title">One Request,
+      <br> Multiple Quotes.</h2>
+    <form>
+      <DIV class="form-group">
+        <input class="form-control" placeholder="What would like to search for..." [(ngModel)]="product.Name"
+          [ngModelOptions]="{standalone: true}">
+      </DIV>
+      <div class="form-group">
+        <button (click)="openRequestForQuoteDialog()" class="btn btn-sm btn-primary">
+          Request For Quotes
+          <i class="fa fa-send-o"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.about-container {
+  /* padding-top: 10px; */
+}
+.text-uppercase{
+  font-size: 24px;
+  color: #d57700;
+}
+
+.upcase{
+  font-size: 18px;
+  color: #d57700;
+  margin-top: 50px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+p{
+  font-size: 14px;
+}

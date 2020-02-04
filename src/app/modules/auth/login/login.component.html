@@ -1,0 +1,91 @@
+<!-- <div class="card">
+  <div class="card-body"> -->
+
+<app-section-title class="text-center" [title]="'sign in'"></app-section-title>
+<div class="login-content">
+  <h5>
+    <span>Using Email Address &amp; Password</span>
+  </h5>
+  <form class="example-form">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <input id="emailFormControl" name="emailFormControl" (keydown.space)="$event.preventDefault();" required
+            minlength="5" class="form-control" placeholder="Email" [formControl]="emailFormControl">
+          <div *ngIf="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)"
+            class="alert alert-danger">
+            <div *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </div>
+            <div *ngIf="emailFormControl.hasError('required')">
+              Email is
+              <strong>required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="input-group">
+            <input id="passwordFormControl" name="passwordFormControl" required minlength="3" class="form-control"
+              [type]="viewPassword ? 'text' : 'password'" placeholder="Password" [formControl]="passwordFormControl">
+            <div class="input-group-append">
+              <a class="btn btn-outline-secondary" (click)="viewPassword = !viewPassword">
+                <i class="fa " [ngClass]="{'fa-eye':!viewPassword, 'fa-eye-slash':viewPassword}"></i>
+              </a>
+            </div>
+          </div>
+          <div *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
+            class="alert alert-danger">
+            <div *ngIf="passwordFormControl.invalid && !(passwordFormControl.hasError('required'))">
+              Password is invalid
+            </div>
+            <div *ngIf="passwordFormControl.hasError('required')">
+              Password is
+              <strong>required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 text-center">
+        <button (click)="login()"
+          [disabled]="loading || emailFormControl.hasError('email') || emailFormControl.hasError('required') || passwordFormControl.hasError('required') || (passwordFormControl.hasError('password') && !passwordFormControl.hasError('required'))"
+          class="btn btn-primary w-100">
+          Sign In
+          <i class="fa {{loading ? 'fa-spin fa-spinner' : 'fa-sign-in'}}"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center btn-holder">
+        <small class="is-clickable">
+          <a routerLink="/auth/forgot-password" class="mr-3">
+            <i class="fa fa-user-secret"></i> forgot password?</a>
+          <a (click)="requestAccountActivationLink()" href="javascript:void(0)">
+            <i class="fa fa-refresh"></i>
+            Resend activation link
+          </a>
+        </small>
+      </div>
+
+    </div>
+  </form>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{errorMessage}}
+  </div>
+  <app-social-login-providers *ngIf="!loading"></app-social-login-providers>
+
+  <h5>
+    <span>New to Afrimart?</span>
+  </h5>
+  <div class="row pb-3">
+    <div class="col-md-12 text-center">
+      <a routerLink="/auth/registration">
+        <i class="fa fa-user-plus"></i> Join Free
+      </a>
+    </div>
+  </div>
+</div>

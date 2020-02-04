@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <!-- <h4 class="text-primary"> INVOICES </h4> -->
+  <app-section-title [title]="'invoices'"></app-section-title>
+  <div class="card">
+    <div class="card-body">
+      <h6 *ngIf="!receivedInvoices && !failedToFetchInvoices" class="bg-white p-5 pl-2">Fetching invoices <i
+          class="fa fa-spin fa-spinner"></i></h6>
+      <h6 *ngIf="receivedInvoices && receivedInvoices.length==0" class="bg-white p-5 pl-2">No invoice returned</h6>
+      <h6 *ngIf="failedToFetchInvoices && !receivedInvoices" class="bg-white p-5 pl-2">Error fetching invoices <br>
+        <button (click)="getReceivedInvoices()" type="button" class="btn btn-sm btn-primary"> Reload </button>
+      </h6>
+      <div class="table-responsive" *ngIf="receivedInvoices">
+        <table class="table table-bordered table-striped table-hover dataTable" *ngIf="receivedInvoices.length>0">
+          <thead>
+            <tr>
+              <td>S/No</td>
+              <td>Invoice ID</td>
+              <td>Business Name</td>
+              <td>Amount</td>
+              <td>Date Generated</td>
+              <td>Payment Date</td>
+              <td>ACTION</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Invoice of receivedInvoices; let i=index;">
+              <td>{{i+1}}</td>
+              <td>{{Invoice.Id}}</td>
+              <td>{{Invoice.Supplier.Name}} </td>
+              <td>{{Invoice.Currency.Symbol}} {{getTotalAmount(Invoice) | price}}</td>
+              <td>{{Invoice.TimeGenerated | time}}</td>
+              <td>
+                {{Invoice.TimePaid || 'Not Paid'}}
+              </td>
+              <td>
+                <button class="btn btn-secondary" [routerLink]="['/invoice', Invoice.Id]">
+                  <i class="fa fa-eye"></i> View
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

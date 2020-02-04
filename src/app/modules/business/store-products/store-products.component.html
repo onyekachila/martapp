@@ -1,0 +1,185 @@
+<section class="supplier-banner" style="background-size: cover; background-position: center; min-height: 160px; overflow: hidden; background-repeat: no-repeat;">
+  <div class="row">
+    <div class="col-md-12 " *ngIf="store" align="center" >
+      <div class="supplier-image">
+        <img class="img-responsive" src="{{store.ImageUrl}}" onError="this.src='../../../assets/images/default.png';">
+      </div>
+      <h3>
+        <strong style="text-transform:uppercase;">
+          {{store.Name}} </strong>
+        <br>
+      </h3>
+      <p>
+        <span><i class="fa fa-map-marker" aria-hidden="true"></i></span> {{store.LocationCountry.Region}}, <img
+          class="ml-2" onError="this.src='assets/images/african-countries/africa.png';"
+          src="{{'assets/images/african-countries/' + store.LocationCountry.FullName.toLowerCase() + '.png'}}"
+          height="15" alt="">
+        {{store.LocationCountry.FullName}} </p>
+      <p>
+        <button (click)="openMessageSupplierDialog(store)" class="btn btn-primary m-1">
+          Send Message
+        </button>
+        <a *ngIf="!store.MicrositeSlug.includes('/null')" href="{{store.MicrositeSlug}}" target="_blank"
+          class="btn btn-outline-primary border-0 m-1 visitMicro">
+          Visit Micro-site
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+<section class="container-fluid">
+  <div class="mt-3" *ngIf="store">
+    <div class="row" id="sectionNavigators">
+      <div class="col-md-12 text-center">
+        <button class="btn btn-outline-dark m-2 border-0" *ngIf="products"
+          (click)="scrollTo('productsSection')">Products</button>
+        <button class="btn btn-outline-dark m-2 border-0" *ngIf="store" (click)="scrollTo('supplierProfileSection')">Company
+          Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <h4 class="mb-3 text-dark text-center">{{'Products'|uppercase}}</h4>
+    <h6 class="bg-white p-2 pt-5 pb-5" *ngIf="!products">Fetching products <i class="fa fa-spin fa-spinner"></i></h6>
+    <h6 class="bg-white p-2 pt-5 pb-5" *ngIf="products && products.length == 0">No product returned</h6>
+    <ng-container *ngIf="products">
+      <div class="row" id="productsSection">
+        <div *ngFor="let prod of products" class="col-lg-2 col-md-3 col-sm-4 col-6 px-1">
+          <app-single-product-card [product]="prod"></app-single-product-card>
+        </div>
+      </div>
+      <div *ngIf="pageEvent.length > products.length" class="row mt-2">
+        <div class="col-md-12 text-center">
+          <span class="is-clickable" (click)="fetchMoreProducts()" title="More products">
+            <i class="fa fa-3x "
+              [ngClass]="{'fa-spin fa-spinner':fetchingProducts, 'fa-caret-down':!fetchingProducts}"></i> <br> {{fetchingProducts?'Loading':'Load more products'}}
+          </span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="mt-3 mb-3">
+    <h6 class="bg-white p-2 pt-5 pb-5" *ngIf="!store">Fetching store detail <i class="fa fa-spin fa-spinner"></i></h6>
+    <div class="card" *ngIf="store">
+    <h4 class="my-3 text-dark text-center">{{'Company Profile'|uppercase}}</h4>
+      <div class="card-body row p-2" id="supplierProfileSection">
+        <div class="col-md-6 p-0">
+          <table class="detail">
+              <tr><td colspan="5"><span>Owner:</span></td><td colspan="7">{{store.Owner.FirstName}} {{store.Owner.LastName}}</td></tr>
+              <tr><td colspan="5"><span>Email Address:</span></td><td colspan="7"><a class="text-dark" href="mailto:{{store.Email}}"> {{store.Email}} </a></td></tr>   
+              <tr><td colspan="5"><span>Phone Number:</span></td><td colspan="7">{{store.PhoneNumber}}</td></tr>    
+              <tr><td colspan="5"><span>Location:</span></td><td colspan="7">{{store.LocationCountry.Region}} <img class="ml-2"
+                onError="this.src='assets/images/african-countries/africa.png';"
+                src="{{'assets/images/african-countries/' + store.LocationCountry.FullName.toLowerCase() + '.png'}}"
+                height="15" alt=""> {{store.LocationCountry.FullName}}</td>
+              </tr>              
+              <tr *ngIf="store.ExternalUrl"><td colspan="5"><span>External Link:</span></td><td colspan="7">{{store.ExternalUrl}}</td></tr>    
+              <tr><td colspan="5"><span>Products:</span></td><td colspan="7">{{store.ProductCount}}</td></tr>    
+              <tr><td colspan="5"><span>Created:</span></td><td colspan="7">{{store.TimeCreated | time}}</td></tr> 
+              <tr>
+                <td colspan="12"><span>Categories:</span></td>
+              </tr>
+              <tr>
+                <td colspan="12"> <a routerLink="/category/{{cat.Id}}" target="_blank" *ngFor="let cat of store.Categories" class="mr-1 text-dark">{{cat.Name}},</a></td>
+              </tr>
+        
+
+
+
+          </table>
+          <!-- <div class="table-responsive">
+            <table style="overflow: hidden;" class="table dataTable table-borderless">
+              <tbody>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td><label>Owner:</label>
+                    <h6>{{store.Owner.FirstName}} {{store.Owner.LastName}}</h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label><i class="fa fa-envelope"></i> &nbsp; Email Address: </label>
+                    <h6><a href="mailto:{{store.Email}}"> {{store.Email}} </a></h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="row" style="overflow: hidden;">
+                      <div class="col-md-6 p-0">
+                        <label><i class="fa fa-phone"></i> &nbsp; Phone Number: </label>
+                        <h6><a href="tel:{{store.PhoneNumber}}"> {{store.PhoneNumber}}</a></h6>
+                      </div>
+                      <div class="col-md-6 p-0" *ngIf="store.LocationCountry"><label><i class="fa fa-flag"></i>
+                          &nbsp; Location:</label>
+                        <h6>{{store.LocationCountry.Region}}, <img class="ml-2"
+                            onError="this.src='assets/images/african-countries/africa.png';"
+                            src="{{'assets/images/african-countries/' + store.LocationCountry.FullName.toLowerCase() + '.png'}}"
+                            height="15" alt=""> {{store.LocationCountry.FullName}}</h6>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td *ngIf="store.ExternalUrl">
+                    <label><i class="fa fa-globe"></i> &nbsp; External Link:</label>
+                    <h6><a matLine href="{{store.ExternalUrl}}" target="_blank">{{store.ExternalUrl}}</a></h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="row" style="overflow: hidden;">
+                      <div class="col-md-6 p-0">
+                        <label><i class="fa fa-file"></i> &nbsp; Products:</label>
+                        <h6>{{store.ProductCount}}</h6>
+                      </div>
+                      <div class="col-md-6 p-0">
+                        <label>
+                          <i class="fa fa-calendar-o"></i> &nbsp; Created:</label>
+                        <h6>{{store.TimeCreated | time}}</h6>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <i class="fa fa-group mr-2"></i>Categories:
+                    </label>
+                    <div style="display: flex;">
+                      <a class="text-dark mr-1" *ngFor="let cat of store.Categories" routerLink="/category/{{cat.Id}}"
+                        target="_blank">{{cat.Name}}</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+        </div>
+        <div class="col-md-6 p-0">
+          <div class="table-responsive">
+            <table class="table table-borderless dataTable">
+              <tr *ngFor="let badge of store.StoreReceivedBadges">
+                <td>
+                  <img src="{{badge.ImageUrl}}" alt="badge" style="height: 30px;"> <span
+                    class="ml-2">{{badge.BadgeName}}</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-12 p-0">
+          <div class="p-2">
+            <h6 class="text-muted">Description</h6>
+            <p>
+              {{store.Description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

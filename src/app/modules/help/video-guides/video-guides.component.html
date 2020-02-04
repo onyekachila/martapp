@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-body">
+      <div class="about-container">
+          <app-section-title title="video guides"></app-section-title>
+          <div class="row">
+            <div class="col-md-4 col-sm-4 mt-3 mb-2" *ngFor="let video of videos">
+                  <video controls="" width="100%">
+                    <source src="{{video.link}}" type="video/mp4">
+                    <source src="{{video.link}}" type="video/ogg"> Your browser does not support HTML5 video.
+                  </video>
+                  <h5>{{video.title}}</h5>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>

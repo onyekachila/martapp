@@ -1,0 +1,35 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- <h4 class="text-primary">{{searchString | uppercase}}</h4> -->
+        <app-section-title [title]="searchString"></app-section-title>
+        <hr>
+        <tabset type="pills">
+          <tab heading="Products">
+            <app-product-list-card [products]="Products"></app-product-list-card>
+            <div class="pl-5" *ngIf="Products">
+              <pagination *ngIf="Products.length>0" [totalItems]="productPageEvent.length"
+                [(ngModel)]="productPageEvent.pageSize" (pageChanged)="loadMoreProducts($event)">
+              </pagination>
+            </div>
+          </tab>
+          <tab heading="Suppliers">
+            <div class="row">
+              <h6 class="mt-5" *ngIf="!Stores">Fetching Suppliers <i class="fa fa-spin fa-spinner"></i></h6>
+              <h6 class="mt-5" *ngIf="Stores && Stores.length<1">No Supplier Found .... </h6>
+              <div class="col-md-4" *ngFor="let store of Stores">
+                <app-single-store-card [store]="store"></app-single-store-card>
+              </div>
+            </div>
+            <div class="pl-5" *ngIf="Stores">
+              <pagination *ngIf="Stores.length>0" [totalItems]="storePageEvent.length"
+                [(ngModel)]="storePageEvent.pageSize" (pageChanged)="loadMoreStores($event)">
+              </pagination>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

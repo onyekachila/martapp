@@ -1,0 +1,44 @@
+$theme-primary-color: orange;
+$root-background-color: #fbfbfb;
+.theme-demo {
+    .nav-pills .nav-link.active,
+    .nav-pills.show>.nav-link {
+        color: #fff !important;
+        background-color: $theme-primary-color !important;
+    }
+    .nav-pills a.nav-link {
+        color: $theme-primary-color !important;
+    }
+    .btn-primary {
+        background-color: $theme-primary-color;
+        &:hover {
+            background-color: $theme-primary-color !important;
+        }
+    }
+    .btn-outline-primary {
+        border-color: $theme-primary-color !important;
+        &:hover {
+            background-color: $theme-primary-color !important;
+            color: #fff !important;
+        }
+    }
+    .text-primary {
+        color: $theme-primary-color !important;
+    }
+    .border-primary {
+        border-color: $theme-primary-color !important;
+    }
+    .gradient-primary.top-down {
+        background-image: linear-gradient($theme-primary-color, $root-background-color);
+    }
+    .page-item.active .page-link {
+        background-color: $theme-primary-color !important;
+        border-color: $theme-primary-color !important;
+    }
+    .progress-bar {
+        background-color: $theme-primary-color !important;
+    }
+    a:hover {
+        color: $theme-primary-color !important;
+    }
+}

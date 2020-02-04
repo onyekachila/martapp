@@ -1,0 +1,73 @@
+.productName {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-height: 20px;
+    height: 40px;
+    letter-spacing: 0;
+    text-decoration: none;
+    vertical-align: baseline;
+    margin: 0;
+    cursor: pointer;
+}
+
+.productName:hover{
+    text-decoration: underline;
+}
+
+.storeName {
+    margin-bottom: 2px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-height: 15px;
+    height: 30px;
+}
+
+.foreignPrice {
+    font-size: 16px;
+    color: #000000;
+    font-weight: 700;
+    height: 32px;
+    line-height: 16px;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.localPrice {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.minimumOrder {
+    font-size: 14px;
+    height: 18px;
+    line-height: 18px;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    vertical-align: baseline;
+}
+
+.card:hover {
+    /* box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important; */ /* shadow small */
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+.single-card .img-thumbnail {
+    padding: 7px !important
+}
+.single-card{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}

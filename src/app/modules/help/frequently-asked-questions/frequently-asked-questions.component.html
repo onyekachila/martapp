@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+      <div class="about-container">
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <app-section-title [title]="'frequently asked questions'"></app-section-title>
+              <div class="abt-content">
+                <accordion>
+                  <ng-container *ngFor="let faq of faqs">
+                    <accordion-group heading="{{faq.title}}">
+                      <div [innerHTML]="faq.content"></div>
+                    </accordion-group>
+                  </ng-container>
+                </accordion>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>

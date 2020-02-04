@@ -1,0 +1,231 @@
+<div>
+  <ul class="nav justify-content-between font-weight-lighter bg-white top-nav" style="font-size: 12px;">
+    <li class="nav-item">
+      <ul class="nav">
+        <li><a routerLink="/help/suppliers-toolkit" class="nav-link text-dark">Supplier's Toolkit</a></li>
+        <li><a routerLink="/help" class="nav-link text-dark">Buyer Center</a></li>
+        <li>
+          <a class="dropdown nav-link">
+            <span class="dropdown-toggle"> Help &amp; Contact
+            </span>
+            <span class="dropdown-content">
+              <a routerLink="/help/faq">Frequently Asked Questions</a>
+              <a routerLink="/help/contact-us">Contact Us</a>
+              <a routerLink="/help/video-guides">Video Guides</a>
+            </span>
+          </a>
+        </li>
+        <li><a routerLink="/top-products" class="nav-link text-dark">Spotlight Deals</a></li>
+        <!-- <li>
+          <a class="dropdown nav-link">
+            <span class="dropdown-toggle"> Quotes
+            </span>
+            <span class="dropdown-content">
+              <a href="#">Quotes Made</a>
+            </span>
+          </a>
+        </li> -->
+        <!-- <li><a href="javascript:void(0)" matTooltip="Current Country: {{selectedCountry.FullName}}">
+            <img onError="this.src='assets/images/african-countries/africa.png';"
+              src="{{ipData ? ipData.location ? ipData.location.country_flag : '' : ''}}" height="20" alt="">
+          </a></li> -->
+        <li>
+          <a class="dropdown nav-link">
+            <span class="dropdown-toggle"> Afri-info </span>
+            <span class="dropdown-content">
+              <a class="is-clickable">Afri-Information</a>
+              <a class="is-clickable">Afri-Story</a>
+              <a class="is-clickable">Afri-Forum</a>
+            </span>
+          </a>
+        </li>
+        <li *ngIf="userService.checkIfAdmin()">
+          <a class="nav-link text-dark"
+            href="https://test.afrimart.com/admin/#/supplier-management/supplier-accounts">Listed
+            Suppliers</a>
+        </li>
+        <li>
+          <a class="nav-link text-dark"
+             href="https://play.google.com/store/apps/details?id=com.afrimart.afrimartapp.android" target="_blank"
+             title="Download Our Android App">
+            <i class="fa fa-android"></i>
+          </a>
+        </li>
+        <li><a routerLink="/help/about-us" class="nav-link text-dark">About us</a></li>
+        <li>
+          <a class="dropdown nav-link">
+            <span class="dropdown-toggle"> {{language}}</span>
+            <span class="dropdown-content">
+              <a class="pointer" (click)="switchLanguage(lang.Name)" *ngFor="let lang of languages">{{lang.Name}}</a>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <ul class="nav">
+        <!-- <li>
+          <a class="dropdown nav-link">
+            <span class="dropdown-toggle"> Themes
+            </span>
+            <span class="dropdown-content">
+              <a *ngFor="let theme of themes" (click)="changeTheme(theme.theme)">{{theme.title}}</a>
+            </span>
+          </a>
+        </li> -->
+
+      </ul>
+    </li>
+  </ul>
+</div>
+<nav id="Header" class="navbar sticky-top navbar-expand-lg navbar-light bg-white shadow-sm top-nav">
+  <a class="navbar-brand" href="#"><img height="50px" src="assets/images/company-logo.png" alt="Afrimart"> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo02">
+    <div class="nav-link text-uppercase text-primary d-none d-md-block">
+      <a class="text-primary" routerLink="/root-categories">
+        <i class="fa fa-list-ul mr-1"></i>Categories </a>
+    </div>
+    <div class="w-70 border border-primary d-none d-md-block" style="border-radius: 10px;">
+      <form class="form-inline my-2 my-lg-0" action="submit" [formGroup]='usersForm'>
+        <div class="input-group text-primary w-100">
+          <div class="input-group-prepend">
+            <div class="btn-group dropdown">
+              <button type="button" class="btn btn-outline-primary border-0 dropdown-toggle">
+                {{searchSelectedObject}}
+              </button>
+              <span class="dropdown-content">
+                <a class="pointer is-clickable" (click)="searchSelectedObject = 'All'">All</a>
+                <a class="pointer is-clickable" (click)="searchSelectedObject = productSearchObject">{{productSearchObject}}</a>
+                <a class="pointer is-clickable" (click)="searchSelectedObject = supplierSearchObject">{{supplierSearchObject}}</a>
+                <a class="pointer is-clickable" (click)="searchSelectedObject = categorySearchObject">{{categorySearchObject}}</a>
+              </span>
+            </div>
+          </div>
+          <input class="border-0 px-2" style="position: relative; flex: 1 1 auto; width: 1%; margin-bottom: 0;"
+            type="text" placeholder="Search.." name="search" formControlName='userInput' [typeaheadAsync]="true"
+            [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)"
+            (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="7" typeaheadOptionField="name"
+            typeaheadWaitMs="1000">
+          <div class="input-group-append">
+            <button class="btn btn-primary border-0" (click)="gotoSearchPage()" type="submit">
+              <i *ngIf="!isLoading" class="fa fa-search mr-1"></i> Search
+              <div *ngIf="isLoading" class="spinner-border text-primary spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="dropdown d-none d-md-block">
+      <div *ngIf="signingOut" class="spinner-border spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <ng-container *ngIf="!signingOut">
+        <span class="dropdown-toggle d-inline-block text-truncate" style="min-width: 100px; max-width: 180px;">
+          <img src="{{userService.getUserProfilePictureLocal()}}" onError="this.src='assets/images/avatars/default.png';"
+            style="height: 50px; width: 50px"
+            class="rounded rounded-circle border-primary" alt="profile picture">
+          {{userService.getUserName() || 'Guest'}}
+        </span>
+        <div class="dropdown-content">
+          <ng-container *ngIf="userService.checkIfUser() || checkIfUserIsMerchant()">
+            <a routerLink="/profile">
+              <i class="fa fa-user"></i> My Profile</a>
+            <a  href="{{supplierDashboard}}" target="_blank">
+              <i class="fa fa-dashboard"></i> My Supplier Dashboard</a>
+            <a *ngIf="checkIfUserIsAdmin()" href="{{administrativeDashboard}}" target="_blank">
+              <i class="fa fa-dashboard"></i> Admin Dashboard
+            </a>
+            <a (click)="logout()">
+              <i class="fa fa-power-off"></i> Sign Out </a>
+          </ng-container>
+          <ng-container *ngIf="!userService.checkIfUser()">
+            <a *ngIf="currentUrl !== '/auth/login'" routerLink="/auth/login">
+              <i class="fa fa-sign-in"></i> &nbsp; Sign In</a>
+            <a *ngIf="currentUrl !== ('/auth/registration' && 'auth/register')" routerLink="/auth/register">
+              <i class="fa fa-user-plus"></i> &nbsp; Register</a>
+          </ng-container>
+          <!-- <a routerLink="/cart">
+                                  <i class="fa fa-cart-plus"></i> My Cart</a> -->
+        </div>
+      </ng-container>
+    </div>
+    <div class="d-block d-md-none">
+      <form class="form-inline my-2 my-lg-0" action="submit" [formGroup]='usersForm'>
+        <div class="input-group text-primary w-100">
+          <input class="border-0 px-2" style="position: relative; flex: 1 1 auto; width: 1%; margin-bottom: 0;"
+            type="text" placeholder="Search.." name="search" formControlName='userInput' [typeaheadAsync]="true"
+            [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)"
+            (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="7" typeaheadOptionField="name"
+            typeaheadWaitMs="1000">
+          <div class="input-group-append">
+            <button class="btn btn-primary border-0" (click)="gotoSearchPage()" type="submit" data-toggle="collapse"
+              data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <i *ngIf="!isLoading" class="fa fa-search mr-1"></i> Search
+              <div *ngIf="isLoading" class="spinner-border text-primary spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="list-group" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="list-group-item list-group-item-action" routerLink="/root-categories">
+          <i class="fa fa-list-ul mr-1"></i>Categories
+        </a>
+        <ng-container *ngIf="userService.checkIfUser()">
+          <a class="list-group-item list-group-item-action" routerLink="/profile">
+            <i class="fa fa-user-o"></i> &nbsp; My Profile
+          </a>
+          <a class="list-group-item list-group-item-action" routerLink="/messaging">
+            <i class="fa fa-envelope"></i> &nbsp; Messaging
+          </a>
+          <a class="list-group-item list-group-item-action" (click)="openWishlistDialog()">
+            <i class="fa fa-heart"></i> &nbsp; My Wishlist
+          </a>
+          <!-- <a class="list-group-item list-group-item-action" routerLink="/cart">
+                        <i class="fa fa-cart-plus"></i> &nbsp; My Cart
+                      </a> -->
+          <a *ngIf="userService.checkIfMerchant()" class="list-group-item list-group-item-action"
+            href="{{supplierDashboardUrl}}" target="_blank">
+            <i class="fa fa-dashboard"></i> &nbsp; Supplier Dashboard
+          </a>
+          <a *ngIf="userService.checkIfAdmin()" class="list-group-item list-group-item-action"
+            href="{{adminDashboardUrl}}" target="_blank">
+            <i class="fa fa-dashboard"></i> &nbsp; Admin Dashboard
+          </a>
+          <a class="list-group-item list-group-item-action" routerLink="/invoices">
+            <i class="fa fa-file"></i> &nbsp; My Invoices
+          </a>
+          <a class="list-group-item list-group-item-action" (click)="logout()">
+            <i class="fa " [ngClass]="{'fa-sign-out':!signingOut, 'fa-spin fa-spinner':signingOut}"></i> &nbsp;
+            Sign Out
+          </a>
+        </ng-container>
+        <ng-container *ngIf="!userService.checkIfUser()">
+          <a class="list-group-item list-group-item-action" routerLink="/auth/login">
+            <i class="fa fa-sign-in"></i> &nbsp; Sign in
+          </a>
+          <a class="list-group-item list-group-item-action" routerLink="/auth/register">
+            <i class="fa fa-registered"></i> &nbsp; Sign up
+          </a>
+        </ng-container>
+        <a class="list-group-item list-group-item-action" routerLink="/become-a-supplier">
+          <i class="fa fa-arrow-circle-o-up"></i> &nbsp; {{userService.checkIfMerchant() ? 'Upgrade Supplier
+                                    Level' : 'Become a Merchant'}}
+        </a>
+        <a class="list-group-item list-group-item-action" routerLink="/help">
+          <i class="fa fa-info"></i> &nbsp; Help links
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

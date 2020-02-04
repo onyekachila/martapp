@@ -1,0 +1,53 @@
+li {
+    display: block;
+}
+
+/* NEWSLETTER SUBSCRIPTION */
+
+.newletter-section {
+    background: #f8f8f8;
+    /* margin: 50px 0 30px 0; */
+    padding: 55px 0 40px 0;
+    position: relative;
+    border-top: 1px solid #fff;
+}
+
+.newletter-section h5 {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1.5px solid;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+    font-weight: 700;
+}
+
+.newletter-section h5 span {
+    background: #f8f8f8;
+    padding: 0 24px;
+}
+
+#wrapper {
+    display: table;
+    table-layout: fixed;
+    width: 70%;
+    height: auto;
+    border-collapse: separate;
+    border-spacing: .5rem;
+}
+
+#wrapper div {
+    display: table-cell;
+    height: auto;
+}
+.tabset-buy-sup ul{
+    padding: 0 !important
+}
+
+@media (max-width: 400px) {
+    .partner-con-fluid{
+        width: 100% !important;
+    }
+    .our-partners div{
+        width: 37px;
+    }
+}

@@ -1,0 +1,182 @@
+<section class="bg-dark pb-5 pt-3 text-white font-weight-light">
+  <div class="container">
+    <div *ngIf="!userService.checkIfUser()" class="d-flex justify-content-center">
+      <div class="text-center">
+        <h4 class="mb-0">NEWSLETTER SUBSCRIPTION</h4>
+        <div><small>Get first hand information and discount codes on out top deals</small></div>
+        <form action="submit" class="mt-2">
+          <div class="input-group">
+            <input type="text" class="form-control" (keydown.space)="$event.preventDefault();" placeholder="Email" [formControl]="emailFormControl">
+            <span class="input-group-addon">
+              <button class="btn-primary btn shadow" (click)="subscribeForNewsLetter()" [disabled]="loading || emailFormControl.hasError('email') || emailFormControl.hasError('required')">Subscribe <i class="fa ml-1" [ngClass]="{'fa-send-o':!loading, 'fa-spin fa-spinner':loading}"></i></button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="mt-2 row d-flex justify-content-around">
+      <div class="col-md-3 col-sm-6">
+        <h4>Afrimart</h4>
+        <ul>
+          <li>
+            <a routerLink="/help/about-us">About Us</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Security Assurance</a>
+          </li>
+          <li>
+            <a routerLink="/help/success-stories">Afri-Testimonials/Stories</a>
+          </li>
+          <li>
+            <a routerLink="/help/press-release">Press Release</a>
+          </li>
+          <li>
+            <a routerLink="/help/advertise-with-us">Advertise With Us</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Career</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h4>Policies &amp; Guidelines</h4>
+        <ul>
+          <li>
+            <a routerLink="/help/terms-and-conditions">Terms and Condition</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Legal Guidelines</a>
+          </li>
+        </ul>
+        <h4>Events</h4>
+        <ul>
+          <li>
+            <a routerLink="/help/">Events In Your Country</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Conferences</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Trade Shows</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h4>Suppliers Toolkit</h4>
+        <ul>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">For Beginners (Video Clips)</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Creating your microsite</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Business Tools &amp; Analytics</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Analytics</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Inventory Management</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Purchase Leads</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Become Verified</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">Selling Tips</a>
+          </li>
+          <li>
+            <a routerLink="/help/suppliers-toolkit">How to attract more buyers on Afrimart</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h4>Buyers Toolkit</h4>
+        <ul>
+          <li>
+            <a routerLink="/help/">Price Quotes</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Product Requests</a>
+          </li>
+          <li>
+            <a routerLink="/help/">Secure Escrow Platform</a>
+          </li>
+        </ul>
+        <h4>Support Center</h4>
+        <ul>
+          <li>
+            <a routerLink="/help/faq">FAQs</a>
+          </li>
+          <li>
+            <a routerLink="/help/contact-us">Customer Care</a>
+          </li>
+          <li>
+            <a routerLink="/help/contact-us">Feedback</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-6">
+        <h6>Join Our Social Media Community</h6>
+        <div class="social-media">
+          <span class="mr-2">
+            <a href="https://www.facebook.com/Afrimarttrade" target="_blank">
+              <img src="assets/images/social-media-icons/facebook.png" alt="facebook">
+            </a>
+          </span>
+          <span class="mr-2">
+            <a href="https://twitter.com/afrimarttrade" target="_blank">
+              <img src="assets/images/social-media-icons/twitter.png" alt="twitter">
+            </a>
+          </span>
+          <span class="mr-2">
+            <a href="https://www.instagram.com/afrimarttrade/" target="_blank">
+              <img src="assets/images/social-media-icons/instagram.png" alt="instagram">
+            </a>
+          </span>
+          <span class="mr-2">
+            <a href="https://www.linkedin.com/company/afrimarttrade" target="_blank">
+              <img src="assets/images/social-media-icons/linkedin.png" alt="linkedin">
+            </a>
+          </span>
+          <span class="mr-2">
+            <a href="https://www.youtube.com/channel/UCZw5GVw25zC7hb7nY1LISig" target="_blank">
+              <img src="assets/images/social-media-icons/youtube.png" alt="youtube">
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h6>Pay Online Using Our Payment Partners</h6>
+        <div class="d-flex flex-wrap payment-partners">
+          <div class="mr-2 mb-2 cursor bg-white p-2">
+            <img alt="itex" src="assets/images/payments/itex.png">
+          </div>
+          <div class="mr-2 mb-2 cursor bg-white p-2">
+            <img alt="payvice" src="assets/images/payments/payvice.png">
+          </div>
+          <div class="mr-2 mb-2 cursor bg-white p-2">
+            <img alt="paystack" src="assets/images/payments/paystack.png">
+          </div>
+          <div class="mr-2 mb-2 cursor bg-white p-2">
+            <img alt="paypal" src="assets/images/payments/paypal.png">
+          </div>
+          <div class="mr-2 mb-2 cursor bg-white p-2">
+            <img alt="skrill" src="assets/images/payments/skrill.png">
+          </div>
+          <div class="mr-2 mb-2 cursor bg-white p-2">
+            <img alt="visa" src="assets/images/payments/visa.png">
+          </div>
+          <div class="cursor bg-white p-2">
+            <img alt="master" src="assets/images/payments/master.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

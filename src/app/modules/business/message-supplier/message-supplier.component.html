@@ -1,0 +1,41 @@
+<ng-container *ngIf="store">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+     <i class="fa fa-envelope-o"></i> Contact {{store.Name}}
+    </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" *ngIf="!isUserLoggedIn">
+      You have to be logged in to contact a Supplier &nbsp; <a (click)="closeModal()" routerLink="/auth/login"> Login <i
+          class="fa fa-sign-in"></i></a>
+    </div>
+    <div class="row example-full-width">
+      <div class="col-md-12 col-sm-12">
+        <div class="req-for-quotes">
+          <div class="form-group w-100">
+            <input class="form-control" readonly disabled [(ngModel)]="store.Name"
+              placeholder="You are sending message to: {{store.Name}}">
+          </div>
+          <div class="form-group w-100">
+            <textarea class="form-control" hintLabel="Max 10 characters" [(ngModel)]="newMessage" maxlength="{{maxLength}}"
+              placeholder="Your message here..."></textarea>
+            <div class="font-weight-lighter">{{newMessage ? newMessage.length : 0}}/{{maxLength}} characters left</div>
+          </div>
+          <div class="form-group">
+            <span class="alert alert-danger" *ngIf="errorMessage">
+              {{errorMessage}}
+            </span>
+            <button (click)="sendMessage()" [disabled]="!isUserLoggedIn || messageSending || !newMessage"
+              class="btn btn-primary pull-right">
+              Send Message
+              <i class="fa " [ngClass]="{'fa-spin fa-spinner':messageSending, 'fa-send-o':!messageSending}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

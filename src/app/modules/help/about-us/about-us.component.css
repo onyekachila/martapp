@@ -1,0 +1,87 @@
+.abt-content {
+    /* padding: 10px 0; */
+    /* margin-bottom: 40px; */
+    font-size: 18px;
+    font-weight: 400;
+}
+.about-container div.row{
+  margin-bottom: 2em;
+}
+.abt-content ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.abt-content ul {
+  margin: 2em 0;
+}
+
+.abt-content li {
+  margin: 1em;
+  margin-left: 3em;
+}
+
+.abt-content li:before {
+  content: '\f069';
+  font-family: 'FontAwesome';
+  float: left;
+  margin-left: -1.5em;
+  color: #d57500;
+}
+
+.link {
+  font-size: 0.45em;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+    /* width: 100%; */
+}
+.services .service {
+    padding: 10px 18px 10px 18px;
+    position: relative;
+    height: 100%;
+    margin-top: 15px;
+}
+.services .service h5 {
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 36px;
+    color: #434343;
+    margin-bottom: 10px;
+}
+.services .service p {
+    font-size: 14px;
+    color: #747474;
+    line-height: 24px;
+}
+
+.text-uppercase{
+  color: #d57700;
+  font-size: 24px;
+}
+
+.upcase{
+  font-size: 18px;
+  text-align: center;
+  color: #d57700;
+}
+.mvc .card{
+  height: 400px;
+  margin-bottom: 10px;
+  text-align: center;
+  justify-content: center;
+}
+.mvc .card h5{
+  font-size: 16px;
+  color: black !important;
+}
+.mvc .card p{
+  color: #6c757d;
+}
+.point i{
+  margin-right: 10px;
+}

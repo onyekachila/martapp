@@ -1,0 +1,18 @@
+.user-profile-holder {
+    font-size: 17px;
+}
+
+.textbold {
+    word-wrap: normal;
+    word-break: break-all;
+}
+
+table.user-profile-holder{
+    border-collapse:separate; 
+    border-spacing: 0 0.6em;
+    font-size: 16px;
+}
+.breadcrumb{
+    background: #ffffff;
+    border: 1px solid #E0E0E0;
+}

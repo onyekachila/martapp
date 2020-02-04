@@ -1,0 +1,73 @@
+/* ========================== IMAGE ANIMATION ======================= */
+.test-query {
+    display: none;
+}
+@media (max-width: 800px) {
+    .test-query{
+        display: block;
+    }
+} 
+/* @media (min-width: 800px) {
+   .cat-sec-card .card-top{
+    width: 40%
+   }
+   .cat-sec-card .card-body{
+    width: 60%
+   }
+}  */
+.card-cat-title-lg{
+    padding-left: 13px;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding-top: 3px;
+}
+.hoveritem {
+    position: relative;
+    overflow: hidden;
+}
+
+.hoveritem img {
+    max-width: 100%;
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.hoveritem:hover img {
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/* ========================== IMAGE ANIMATION ======================= */
+
+.topleft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 14px;
+    padding: 15px;
+    word-break: break-all;
+    /* width: 170px; */
+}
+
+.topleft h5 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.bottomright {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 18px;
+    margin-right: 15px;
+}
+ .card-sec{
+    padding: 0 !important;
+    margin: 0;
+    border: 1px solid #F2F3F7;
+}
+.cat-sec-card{
+    padding: 0
+}

@@ -1,0 +1,271 @@
+<div class=" ">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" >
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active"><a routerLink="/profile">User Profile</a></li>
+      <li class="breadcrumb-item active" aria-current="page" *ngIf="user">{{user.FirstName}} {{user.LastName}}</li>
+    </ol>
+  </nav>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="list-group">
+        <!-- <a class="list-group-item list-group-item-action" routerLink="/profile">
+          <i class="fa fa-user-o"></i> &nbsp; My Profile
+        </a> -->
+        <a class="list-group-item list-group-item-action" routerLink="/auth/change-password">
+          <i class="fa fa-lock"></i> &nbsp; Change Password
+        </a>
+        <a class="list-group-item list-group-item-action" routerLink="/messaging">
+          <i class="fa fa-envelope"></i> &nbsp; Messaging
+        </a>
+        <!-- <a class="list-group-item list-group-item-action" routerLink="/cart">
+              <i class="fa fa-cart-plus"></i> &nbsp; My Cart
+            </a> -->
+        <a *ngIf="userService.checkIfMerchant()" class="list-group-item list-group-item-action"
+          href="{{supplierDashboardUrl}}" target="_blank">
+          <i class="fa fa-dashboard"></i> &nbsp; Supplier Dashboard
+        </a>
+        <a *ngIf="userService.checkIfAdmin()" class="list-group-item list-group-item-action"
+          href="{{adminDashboardUrl}}" target="_blank">
+          <i class="fa fa-dashboard"></i> &nbsp; Admin Dashboard
+        </a>
+        <a class="list-group-item list-group-item-action" routerLink="/invoices">
+          <i class="fa fa-file"></i> &nbsp; My Invoices
+        </a>
+        <a *ngIf="userService.checkIfUserInfoUpdated()" class="list-group-item list-group-item-action"
+          routerLink="/become-a-supplier">
+          <i class="fa fa-arrow-circle-o-up"></i> &nbsp; {{userService.checkIfMerchant() ? 'Upgrade Supplier
+                                          Level' : 'Become a Merchant'}}
+        </a>
+        <a *ngIf="signingOut" class="list-group-item list-group-item-action" (click)="logout()">
+          <i class="fa " [ngClass]="{'fa-sign-out':!signingOut, 'fa-spin fa-spinner':signingOut}"></i> &nbsp;
+          Sign Out
+        </a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2 py-4">
+          <h5>My Profile</h5>
+          <div class="row">
+            <div class="col-md-4 col-sm-12 p-0">
+              <img *ngIf="!croppingImage" onError="this.src='assets/images/avatars/default.png';"
+                src="{{user.ImageUrl}}" alt="profile picture" width="100%" style="width: 150px; height: 160px;"
+                class="rounded-circle  m-1">
+              <div class="mt-1">
+                <ng-container *ngIf="croppingImage">
+                  <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                    [aspectRatio]="4 / 3" [resizeToWidth]="200" format="jpg" (imageCroppedBase64)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+                  <img [src]="croppedImage" />
+                </ng-container>
+                <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <button *ngIf="croppingImage && !uploadingImage" class="btn btn-primary"
+                      (click)="uploadProfilePicture()" type="button" id="inputGroupFileAddon04">Upload
+                    </button>
+                    <div *ngIf="uploadingImage" class="spinner-border spinner-border spinner-border-sm" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <div class="custom-file">
+                    <ng-container *ngIf="!uploadingImage">
+                      <input type="file" (change)="fileChangeEvent($event)" class="custom-file-input" accept="image/*"
+                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                      <label style="font-size: small" class="custom-file-label border-0 p-2 text-nowrap overflow-hidden" for="inputGroupFile04">
+                        Change Profile Picture</label>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <table class="w100p user-profile-holder">
+                <tr>
+                  <td colspan="5" class="text-muted pr-2">User ID</td>
+                  <td colspan="7" class="textbold">
+                    {{user.UserUniqueKey}}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="text-muted pr-2">Email Address</td>
+                  <td colspan="7" class="textbold">
+                    {{user.Email}}
+                  </td>
+                </tr>
+                <ng-container *ngIf="!editting">
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Name</td>
+                    <td colspan="7" class="textbold">
+                      {{user.FirstName}} {{user.LastName}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Date of Birth</td>
+                    <td colspan="7" class="textbold">
+                      {{(user.DateOfBirth | time) || 'Not Set'}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Default Country</td>
+                    <td colspan="7" class="textbold">
+                      {{user.DefaultCountryName}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Phone Number</td>
+                    <td colspan="7" class="textbold">
+                      {{user.PhoneNumber || 'Not Set'}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Default Language</td>
+                    <td colspan="7" class="textbold">
+                      {{user.PreferredLanguage ? user.PreferredLanguage.Name : 'Not Set'}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Default Currency</td>
+                    <td colspan="7" class="textbold">
+                      {{(user.PreferredCurrencySymbol ? user.PreferredCurrencySymbol + '-' +user.PreferredCurrencyName : 'Not Set')}}
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="editting">
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">First Name</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <input id="userFirstName" [(ngModel)]="user.FirstName" required
+                          [ngModelOptions]="{standalone: true}" class="form-control" placeholder="First Name"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Last Name</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <input id="userLastName" [(ngModel)]="user.LastName" required
+                          [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Last Name"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Date of Birth</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <input required readonly class="form-control" #dp="bsDatepicker" bsDatepicker
+                          [minDate]="minDate" [maxDate]="maxDate" placeholder="Choose a date"
+                          [bsValue]="selectedDateOfBirth"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default' }"
+                          (bsValueChange)="onDatePickerValueChange($event)">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Default Country</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <select [(ngModel)]="user.DefaultCountryId" (ngModelChange)="valueChange($event)"
+                          class="custom-select  mb-3">
+                          <option *ngFor="let country of countries" [value]="country.Id">
+                            {{country.FullName}}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Phone Number</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <div class="alert alert-info p-1">
+                          <small>
+                            Please include your extension code.
+                            {{selectedCountry ? ('Example: '+selectedCountry.FullName+': +'+selectedCountry.CallingCode+'*********') : ''}}
+                          </small>
+                        </div>
+                        <div class="input-group">
+                          <!-- <div class="input-group-prepend" *ngIf="selectedCountry">
+                            <span class="input-group-text">
+                              +{{selectedCountry.CallingCode}}</span></div> -->
+                          <input type="tel" [(ngModel)]="user.PhoneNumber" [ngModelOptions]="{standalone: true}"
+                            class="form-control">
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Default Language</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <select [(ngModel)]="user.PreferredLanguage.Id" class="custom-select  mb-3">
+                          <option *ngFor="let language of languages" [value]="language.Id">{{language.Name}}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" class="text-muted pr-2">Default Currency</td>
+                    <td colspan="7" class="textbold">
+                      <div class="form-group">
+                        <select [(ngModel)]="user.PreferredCurrencyId" class="custom-select  mb-3">
+                          <option *ngFor="let currency of currencies" [value]="currency.Id">{{currency.Name}}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+
+              </table>
+              <div class="my-3">
+                  <h6>Your Profile Is {{userService.checkProfileUpdatedPercentage()}}% Complete</h6>
+                  <div class="progress ">
+                    <div class="progress-bar progress-bar-animated" role="progressbar"
+                      aria-valuenow="{{userService.checkProfileUpdatedPercentage()}}" aria-valuemin="0"
+                      aria-valuemax="100" [ngStyle]="{'width' : userService.checkProfileUpdatedPercentage()+'%'}"></div>
+                  </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-12 p-0">
+                      <button *ngIf="!editting" mat-raised-button (click)="toggleEdit()" class="btn btn-primary">
+                        Edit Profile 
+                      </button>
+                      <button [disabled]="loading" mat-raised-button *ngIf="editting" (click)="update()"
+                        class="btn btn-primary m-1">
+                        <i class="fa {{loading ? 'fa-spin fa-spinner' : 'fa-save'}}"></i> Save Changes
+                      </button>
+                      <button [disabled]="loading" *ngIf="editting" (click)="toggleEdit()"
+                        class="btn btn-outline-primary border-0 m-1">
+                        <i class="fa fa-times"></i> Cancel
+                      </button>
+                      <button routerLink="/become-a-supplier"
+                        *ngIf="!userService.checkIfMerchant() && userService.checkIfUserInfoUpdated() && !editting"
+                        class="btn btn-outline-primary m-1">
+                        <i class="fa fa-users"></i> Become a Supplier
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="userService.checkForMissingProfileData() != ''">
+                      <div class="col-12 alert alert-info p-0">
+                        <h6>
+                          Kindly update the following (
+                          <strong class="upcase">
+                            {{userService.checkForMissingProfileData()}}
+                          </strong>) to become a supplier
+                        </h6>
+                      </div>
+                    </div>
+            </div>
+          </div>
+   
+          <br>
+          <div class="alert alert-danger" *ngIf="profileUpdateErrorMessage">
+            {{profileUpdateErrorMessage}}
+          </div>
+ 
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

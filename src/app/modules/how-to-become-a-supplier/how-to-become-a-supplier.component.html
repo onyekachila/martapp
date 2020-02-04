@@ -1,0 +1,342 @@
+<section class="become-supplier-holder">
+  <div class="row pages">
+    
+    <div (click)="goToPage(index)" class="text-center col-sm-3 p-1" *ngFor="let link of links; let index = index" >
+      <div class="card is-clickable btn-outline-primary border-1" [ngClass]="{'box-shadow': index === pageNumber}">
+        <div class="card-body p">
+          <img src="{{link.image}}" style="height: 100px; width: 100px; max-width: 100%;" alt="">
+          <h6 class="mt-1" [ngClass]="{'text-info': index === pageNumber, 'text-dark':index !== pageNumber }" >{{link.title}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="p-1" *ngIf="pageNumber === 0" id="Guides">
+  <!-- <app-section-title [title]="'guide on how to become a supplier'"></app-section-title> -->
+  <h5 class=" text-capitalize">Become A Supplier (Guides)</h5>
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-md-12">
+        <div>
+          <h6><i class="fa fa-circle mr-2 text-secondary my-3"></i>  Step 1: Create an Account and Update your Profile</h6>
+          <h6><i class="fa fa-circle mr-2 text-secondary my-3"></i>  Step 2: Select a Supplier Type  <span style="font-size: small" class="text-muted">(Choose between Basic, Silver, Gold and Platinum Supplier Type)</span></h6>
+          <h6><i class="fa fa-circle mr-2 text-secondary my-3"></i> Step 3: Create a Business  <span style="font-size: small" class="text-muted">(After creating an account, click the Dropdown button on your profile and proceed to the supplier dashboard)</span></h6>
+          <h6><i class="fa fa-circle mr-2 text-secondary my-3"></i>  Step 4: Add Products to Store</h6>
+        </div> 
+
+      </div>
+      <!-- <div class="col-md-12">
+        <tabset type="pills">
+          <tab heading="step 1: UPDATE YOUR PROFILE">
+            <div class="tab-content-holder">
+              <div class="row pb-2">
+                <div class="col-md-12 col-sm-12">
+                  <h6 *ngIf="isUserLoggedIn">
+                    Your Profile Is {{percentageProfileUpdated}}% Complete
+                    <ng-container *ngIf="userService.checkForMissingProfileData() != ''">, kindly update the following
+                      (
+                      <strong class="upcase">
+                        {{userService.checkForMissingProfileData()}}
+                      </strong>) before proceeding to the next step</ng-container>
+                  </h6>
+                  <button  class="btn btn-primary ml-3" routerLink="/auth/login" translate *ngIf="!isUserLoggedIn"
+                    type="button">
+                    <i class="fa fa-sign-in"></i> sign in / sign up
+                  </button>
+                  <button  class="btn btn-primary ml-3" translate [routerLink]="['/profile']"
+                    *ngIf="isUserLoggedIn && !userProfileUpdated" type="button">
+                    <i class="fa fa-user"></i> Update Profile
+                  </button>
+                </div>
+              </div>
+              <div class="row" *ngIf="isUserLoggedIn">
+                <div class="col-md-12 col-sm-12">
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-animated" role="progressbar"
+                      aria-valuenow="{{percentageProfileUpdated}}" aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{'width' : percentageProfileUpdated+'%'}"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <tab heading="step 2: SELECT SUPPLIER TYPE">
+            <div class="tab-content-holder abt-content">
+              <ul>
+                <li>You must have completed step one (Updating your profile) before proceeding with this step. Select
+                  one of
+                  the various mechant levels a user can become and make payments if applicable</li>
+                <li>Here you can make use of Discount Codes</li>
+                <li>Verification process would be performed if applicable</li>
+                <li>These are the following Supplier levels available:
+                  <ul>
+                    <li>Basic Level Supplier</li>
+                    <li>Silver Level Supplier</li>
+                    <li>Gold Level Supplier</li>
+                    <li>Platinum Level Supplier</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </tab>
+          <tab heading="step 3: CREATE STORE">
+            <div class="tab-content-holder abt-content">
+              <ul>
+                <li>After completing step 2 (Selecting A Supplier Type) and approval recieved, then you can proceed
+                  with this
+                  step.
+                </li>
+                <li>To create a store, you are expected to provide the following information:</li>
+                <li>
+                  Store Name
+                </li>
+                <li>
+                  Store Phone Number
+                </li>
+                <li>
+                  Store External Website Address
+                </li>
+                <li>
+                  Store Email Address
+                </li>
+                <li>
+                  Store Default Country
+                </li>
+                <li>
+                  Store Image
+                </li>
+                <li>
+                  Store Description
+                </li>
+              </ul>
+            </div>
+          </tab>
+          <tab heading="step 4: ADD PRODUCTS TO STORE">
+            <div class="tab-content-holder abt-content">
+              <ul>
+                <li>After completing step 3 (Creating a Store), depending on the rules set by the Supplier level
+                  chosen, you
+                  can add a set number of products to a store</li>
+                <li>To add a product, you are expected to provide the following information:</li>
+                <li>
+                  Product Name
+                </li>
+                <li>
+                  Default Currency
+                </li>
+                <li>
+                  Maximum Price Per Unit
+                </li>
+                <li>
+                  Minimum Price Per Unit
+                </li>
+                <li>
+                  Images
+                </li>
+                <li>
+                  Product Unit
+                </li>
+                <li>
+                  Minimum Order Number
+                </li>
+                <li>
+                  Categories
+                </li>
+                <li>
+                  Description
+                </li>
+              </ul>
+            </div>
+          </tab>
+        </tabset>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<section class="p-1" *ngIf="pageNumber === 1" id="SupplierPricing">
+  <!-- <app-section-title [title]="'supplier types and pricing table'"></app-section-title> -->
+  <h5 class=" text-capitalize"> Select Supplier Type <span style="font-size: small; font-weight: 600" class="text-muted">(Note: You must have updated your profile to select a supplier type)</span></h5>
+  <div class="card">
+    <div class="row text-center">
+        <div class="card-body" *ngFor="let paymentItem of paymentItems; let i=index; let first = first;">
+          <div class="card" style="width: 235px; height: 100%;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);">
+            <app-loading *ngIf="!paymentItems" [message]="'Loading payment data'"></app-loading>
+            <div class="col-sm-12  p-0">
+              <div class="mt-3">
+                  <h6 class="text-uppercas"  >{{paymentItem.Name}}</h6>
+                  <h6 >
+                    <ng-container *ngIf="paymentItem.PaymentItem">
+                        {{paymentItem.PaymentItem.BaseCurrency.Symbol}}{{paymentItem.PaymentItem.Amount | price}}
+                    </ng-container>
+                    <ng-container *ngIf="!paymentItem.PaymentItem">Free</ng-container> /Year
+                  </h6>
+              </div>
+              <!-- <div class="card-header price-value" [ngClass]="{'two':i+1==2, 'three':i+1==3, 'four':i+1==4}">
+                  <h6 [ngClass]="{'text-light': !first}" >{{paymentItem.Name}}</h6>
+                  <h6 style="color: #b3421b" >
+                    <ng-container *ngIf="paymentItem.PaymentItem">
+                        {{paymentItem.PaymentItem.BaseCurrency.Symbol}}{{paymentItem.PaymentItem.Amount | price}}
+                    </ng-container>
+                    <ng-container *ngIf="!paymentItem.PaymentItem">Free</ng-container> /Year
+                  </h6>
+              </div> -->
+              <div class="mt-4">
+                  <h6 class="pb-1" *ngFor="let item of paymentItem.Data"> <span class="text-muted">{{item.Name}}:</span> {{item.Value}}</h6>
+              </div>
+              <div class="my-3">
+                  <button *ngIf="!userService.checkIfUser()" [disabled]="processing" routerLink="/auth/login"
+                  class="btn btn-sm btn-primary">
+                 Login
+                 <i class="fa fa-spin fa-spinner" *ngIf="processing"></i>
+               </button>
+               <ng-container *ngIf="userService.checkIfUser()">
+                 <button *ngIf="!currUser.CurrentSubscription" [disabled]="processing"
+                   (click)="apply(paymentItem.PaymentItem)"  class="btn btn-sm btn-primary">
+                   Apply here
+                   <i class="fa fa-spin fa-spinner" *ngIf="processing"></i>
+                 </button>
+                 <ng-container *ngIf="currUser.CurrentSubscription">
+                   <button *ngIf="currUser.CurrentSubscription.SubscriptionTypeId < paymentItem.MerchantType"
+                     [disabled]="processing" (click)="apply(paymentItem.PaymentItem)" 
+                     class="btn btn-primary btn-sm">
+                     Subscribe
+                     <i class="fa fa-spin fa-spinner" *ngIf="processing"></i>
+                   </button>
+                 </ng-container>
+               </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- <div class="card-body row">
+      <div class="col-md-12 text-center">
+        <div class="pricing-plans">
+          <div class="wrap">
+            <div class="pricing-grids">
+              <app-loading *ngIf="!paymentItems" [message]="'Loading payment data'"></app-loading>
+              <ng-container *ngFor="let paymentItem of paymentItems; let i=index;">
+                <div class="pricing-grid{{i+1}}">
+                  <div class="price-value" [ngClass]="{'two':i+1==2, 'three':i+1==3, 'four':i+1==4}">
+                    <h2 class="text-uppercase">{{paymentItem.Name}}</h2>
+                    <h5>
+                      <span *ngIf="paymentItem.PaymentItem">{{paymentItem.PaymentItem.BaseCurrency.Symbol}}
+                        {{paymentItem.PaymentItem.Amount | price}}</span>
+                      <span *ngIf="!paymentItem.PaymentItem">Free</span>
+                      <small> /Year</small>
+                    </h5>
+                  </div>
+                  <div class="price-bg">
+                    <ul>
+                      <li class="whyt is-clickable" *ngFor="let item of paymentItem.Data">
+                        <a>
+                          {{item.Name}}: <strong>{{item.Value}}</strong>
+                        </a>
+                      </li>
+                    </ul>
+                    <button *ngIf="!userService.checkIfUser()" [disabled]="processing" routerLink="/auth/login"
+                       class="btn btn-primary">
+                      Login
+                      <i class="fa fa-spin fa-spinner" *ngIf="processing"></i>
+                    </button>
+                    <ng-container *ngIf="userService.checkIfUser()">
+                      <button *ngIf="!currUser.CurrentSubscription" [disabled]="processing"
+                        (click)="apply(paymentItem.PaymentItem)"  class="btn btn-primary">
+                        Apply here
+                        <i class="fa fa-spin fa-spinner" *ngIf="processing"></i>
+                      </button>
+                      <ng-container *ngIf="currUser.CurrentSubscription">
+                        <button *ngIf="currUser.CurrentSubscription.SubscriptionTypeId < paymentItem.MerchantType"
+                          [disabled]="processing" (click)="apply(paymentItem.PaymentItem)" 
+                          class="btn btn-primary">
+                          Upgrade Level
+                          <i class="fa fa-spin fa-spinner" *ngIf="processing"></i>
+                        </button>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="clear"> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<section class="p-1" *ngIf="pageNumber === 2" id="AboutLeads">
+  <!-- <app-section-title [title]="'about leads'"></app-section-title> -->
+  <h5 class=" text-capitalize">about leads</h5>
+
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-md-12 abt-content">
+        <p>Get alerts and or search for Requests made by potential buyers that match your selected keywords.</p>
+        <p>Set your Lead preference by creating a Lead Subscription</p>
+        <ul>
+          <li>
+            Set Subscription Title
+            <mark>(Something that describes the type of leads gotten)</mark>
+          </li>
+          <li>
+            Pick a date range
+            <mark>(The least date you want to receive leads/requests, and the maximum/farthest date.)</mark>
+          </li>
+          <li>
+            Enter keywords
+            <mark>(These are words used to filter through our pool of requests. Be creative. Think of words users may
+              use when
+              making a request for a product/service)</mark>
+          </li>
+          <li>
+            Select a preferred subscription package
+            <mark>These specifies the maximum number of leads you can get, and the amount required</mark>
+          </li>
+        </ul>
+        <p>
+          <strong>NOTE: </strong>
+        </p>
+        <ul>
+          <li>
+            Leads don't expire
+          </li>
+          <li>
+            A lead subscription can be edited
+          </li>
+          <li>
+            Your lead count is only counted when you view a lead/request
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="p-1" *ngIf="pageNumber === 3" id="AfriStory">
+  <!-- <app-section-title [title]="'afristory'"></app-section-title> -->
+  <h5 class=" text-capitalize">afristory</h5>
+
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-md-6 col-sm-6">
+        <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          src="https://www.youtube.com/embed/xtsFl2fGBHc" width="100%" height="315" frameborder="0"></iframe>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <iframe allowfullscreen src="https://www.youtube.com/embed/pU7jTmnWAdU" width="100%" height="315"
+          frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row mt-3">
+ <div class="col-md-12 p-1">
+    <button  [ngClass]="{'d-none':pageNumber === 0}" (click)="prev()" class="float-left btn btn-outline-primary"><i class="fa fa-arrow-left"></i> Prev</button>
+    <button  [ngClass]="{'d-none':pageNumber === 3}" (click)="next()" class="float-right btn btn-outline-primary">Next <i class="fa fa-arrow-right"></i></button>
+ </div>
+  </div>

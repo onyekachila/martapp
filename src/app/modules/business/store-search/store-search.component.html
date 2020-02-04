@@ -1,0 +1,58 @@
+<div class="row mt-4 left-right">
+  <div class="col-md-2 d-none d-md-block">
+    <h6 class="text-center">{{'Regions' | uppercase}}</h6>
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" *ngFor="let region of regions">
+        <div class="custom-control custom-checkbox">
+          <input (change)="region_onChange(region, $event.target)" type="checkbox" class="custom-control-input"
+            id="{{region}}">
+          <label class="custom-control-label" for="{{region}}">{{region}}</label>
+        </div>
+      </a>
+    </div>
+    <h6 class="text-center">{{'Countries' | uppercase}}</h6>
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" *ngFor="let country of Countries; let i=index">
+        <div class="custom-control custom-checkbox">
+          <input [checked]="selectedCountryIds.indexOf(country.Id) > -1"
+            (change)="selectCountry(country, $event.target)" type="checkbox" class="custom-control-input"
+            id="countryCheckBx{{i}}">
+          <label class="custom-control-label" for="countryCheckBx{{i}}">{{country.FullName}}</label>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-9 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <tabset #staticTabs type="pills">
+          <tab (select)="onLinkClick()" heading="Products"></tab>
+          <tab heading="Suppliers">
+            <div class="row mt-2">
+              <h6 class="mt-5" *ngIf="!Stores">Fetching Suppliers <i class="fa fa-spin fa-spinner"></i></h6>
+              <h6 class="mt-5" *ngIf="Stores && Stores.length<1">No Supplier Found .... </h6>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-6 px-1" *ngFor="let store of Stores">
+                <app-single-store-card [store]="store"></app-single-store-card>
+              </div>
+            </div>
+            <div class="pl-5" *ngIf="Stores">
+              <pagination *ngIf="Stores.length>0" [totalItems]="pageEvent.length" [(ngModel)]="pageEvent.pageSize"
+                (pageChanged)="loadMoreStores($event)">
+              </pagination>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1 d-none d-md-block">
+    <ng-container *ngFor="let supplier of topSuppliers">
+      <div routerLink="/store-products/{{supplier.StoreGuid}}" class="topSupplier-card p-1 mb-2 bg-white">
+        <img src="{{supplier.ImageUrl ? supplier.ImageUrl : '../../assets/images/default.png'}}" width="100%"
+          alt="">
+        <br>
+        <small>{{supplier.Name}}</small>
+      </div>
+    </ng-container>
+  </div>
+</div>

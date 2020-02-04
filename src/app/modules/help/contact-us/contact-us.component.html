@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="card-body">
+      <div class="about-container">
+          <div class="row">
+            <div class="col-md-12">
+              <app-section-title [title]="'Leave a message'"></app-section-title>
+              <div class="abt-content">
+                <p>Kindly take a moment to tell us how we can serve you better</p>
+                <form class="example-form" [formGroup]="contactForm" (ngSubmit)="contactUs()">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input formControlName="UserName" class="form-control" placeholder="Your Name">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input formControlName="Email" class="form-control" placeholder="Your Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input formControlName="Title" class="form-control" placeholder="Subject">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <textarea formControlName="Message" class="form-control" placeholder="Your Message"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="alert" [ngClass]="{'alert-danger':message.type=='error', 'alert-success':message.type=='success'}"
+                        *ngIf="message">
+                        {{message.text}}
+                      </div>
+                      <button [disabled]="!contactForm.valid || loading" (click)="contactUs()" type="submit" mat-raised-button
+                        class="btn btn-primary">
+                        Send Message
+                        <i class="fa ml-2" [ngClass]="{'fa-send-o':!loading, 'fa-spin fa-spinner':loading}"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3">
+              <app-section-title [title]="'Afrimart commerce plc'"></app-section-title>
+              <p class="no-link-effect">For all inquiries, write to us at
+                <a href="mailto:info@afrimart.com">info@afrimart.com</a>. We respond within 24 hours.</p>
+              <h6 class="mt-2">
+                <strong>Hours of Operation</strong>
+              </h6>
+              <div class="row" *ngFor="let operationtime of operationstime">
+                <div class="col-md-7 col-sm-7">{{operationtime.day}}</div>
+                <div class="col-md-5 col-sm-5 pull-right">
+                  <i class="fa fa-clock-o mr-2"></i> {{operationtime.time}}</div>
+              </div>
+              <h6 class="mt-2">
+                <strong>Join Social Media Community</strong>
+              </h6>
+              <div class="row p-3 no-link-effect">
+                <span *ngFor="let socialmedia of socialmedias">
+                  <a href="{{socialmedia.link}}" target="_blank" class="is-clickable">
+                    <i class="fa fa-{{socialmedia.icon}} fa-2x sm-{{socialmedia.icon}} mr-3"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+</div>

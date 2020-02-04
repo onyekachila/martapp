@@ -1,0 +1,58 @@
+<div class="row text-left mb-1 product-list-view">
+  <div class="col-lg-2 col-md-2 col-sm-4">
+    <carousel>
+      <slide routerLink="/product/{{product.ProductGuid}}" *ngFor="let slide of product.ProductImages; let i=index">
+        <img src="{{slide.ImageUrl}}" alt="product-image {{i+1}} " style="display: block; width: 100%;">
+      </slide>
+    </carousel>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <h5 class="headline is-clickable" routerLink="/product/{{product.ProductGuid}}">
+      {{product.Name}}
+    </h5>
+    <p class="price">
+      <span class="primary-color">
+        {{product.MinimumPricePerUnit | currencyConversion:product.DefaultCurrency.CurrencyCode | currency}}
+        <ng-container *ngIf="product.DefaultCurrency.CurrencyCode !== 'USD'">
+          <small>({{product.DefaultCurrencySymbol}}{{product.MinimumPricePerUnit | price}})</small>
+        </ng-container> - {{product.MaximumPricePerUnit | currencyConversion:product.DefaultCurrency.CurrencyCode |
+        currency}}
+        <ng-container *ngIf="product.DefaultCurrency.CurrencyCode !== 'USD'">
+          <small>({{product.DefaultCurrencySymbol}}{{product.MaximumPricePerUnit | price}})</small>
+        </ng-container>
+      </span>
+    </p>
+    <p>
+      {{product.PurchaseProductUnit.Name}}
+    </p>
+
+    <p class="price">
+      <strong>{{product.MinimumNumberOfUnits}} {{product.PurchaseProductUnit.Name}}</strong>
+      <small class="tiny-text"> (Minimum
+        Order)
+      </small>
+    </p>
+  </div>
+  <div class="col-lg-4 col-md-4">
+    <a routerLink="/store-products/{{product.Store.StoreGuid}}" class="is-clickable text-dark headline">{{product.Store.Name}}
+    </a>
+    <div style="display: flex">
+      <div class="text-center" *ngFor="let badge of product.Store.StoreReceivedBadges">
+        <img height="30px" src="{{badge.ImageUrl}}">
+        <br>
+        <small class="font-weight-light">{{badge.BadgeName}}</small>
+      </div>
+    </div>
+    <p>
+      <img class="ml-2" onError="this.src='assets/images/african-countries/africa.png';"
+        src="{{'assets/images/african-countries/' + product.Store.LocationCountry.FullName.toLowerCase() + '.png'}}" height="15"
+        alt="">
+      {{product.Store.LocationCountry.FullName}}
+    </p>
+    <div class="pt-2">
+      <button (click)="openMessageSupplierDialog()" class="is-clickable btn btn-sm btn-primary">
+        <i class="fa fa-envelope mr-1"></i> Contact Supplier
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="row mt-3">
+  <div class="col-md-12 text-center">
+    <div class="card min-vh-100">
+      <div class="card-body">
+        <app-product-list-card [products]="Products"></app-product-list-card>
+        <div *ngIf="Products" class="pl-5">
+          <pagination [totalItems]="pageEvent.length" [(ngModel)]="pageEvent.pageSize"
+            (pageChanged)="loadMoreProducts($event)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

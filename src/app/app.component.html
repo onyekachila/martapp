@@ -1,0 +1,22 @@
+<div class=" ">
+  <!-- <app-header></app-header> -->
+  <div class="overflow-hidden w-100 min-vh-100 root-background-color">
+    <div class="row">
+      <div id="section1" class="flex col-md-12 px-0">
+          <app-header></app-header>
+        <main class="pt-3 mb-3 min-vh-75">
+         <div class="container">
+          <router-outlet></router-outlet>
+         </div>
+        </main>
+        <div class="w-100" style="bottom: 0;">
+          <app-footer></app-footer>
+        </div>
+      </div>
+      <div style="right:0;" class="position-fixed h-100 d-none d-md-block">
+        <app-right-menu></app-right-menu>
+      </div>
+  
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="row mt-4">
+  <div class="col-md-2 d-none d-md-block">
+    <div class="mb-3">
+      <h6 class="text-center">{{'Price' | uppercase}}</h6>
+      <hr>
+      <form action="submit">
+        <div class="input-group">
+          <input class="form-control" required placeholder="Min. Price" [(ngModel)]="filter.MinPrice" required
+            [ngModelOptions]="{standalone: true}">
+          <input class="form-control" required placeholder="Max. Price" [(ngModel)]="filter.MaxPrice" required
+            [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <button type="submit" (click)="getProducts(0)" class="btn btn-sm btn-primary pull-right">ok</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="relatedCategories && relatedCategories.length>0">
+      <h6 class="text-center">{{'Related Categories' | uppercase}}</h6>
+      <hr>
+      <ul>
+        <ng-container *ngFor="let category of relatedCategories; let i=index">
+          <li class="is-clickable" routerLink="/category/{{category.Id}}" *ngIf="i<maxNumOfCatsToShow">
+            {{category.Name}}
+          </li>
+        </ng-container>
+        <ng-container *ngIf="relatedCategories.length > maxNumOfCatsToShow">
+          <li class="is-clickable mt-2" (click)="maxNumOfCatsToShow = maxNumOfCatsToShow + 5">
+            Show More
+          </li>
+        </ng-container>
+        <ng-container *ngIf="relatedCategories.length <= maxNumOfCatsToShow">
+          <li class="is-clickable mt-2" (click)="maxNumOfCatsToShow = 5">
+            Show Less
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+    <h6 class="text-center">{{'Regions' | uppercase}}</h6>
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" *ngFor="let region of regions">
+        <div class="custom-control custom-checkbox">
+          <input (change)="region_onChange(region, $event.target)" type="checkbox" class="custom-control-input"
+            id="{{region}}">
+          <label class="custom-control-label" for="{{region}}">{{region}}</label>
+        </div>
+      </a>
+    </div>
+    <h6 class="text-center">{{'Countries' | uppercase}}</h6>
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" *ngFor="let country of Countries; let i=index">
+        <div class="custom-control custom-checkbox">
+          <input [checked]="filter.CountryIds.indexOf(country.Id)>-1" (change)="selectCountry(country, $event.target)"
+            type="checkbox" class="custom-control-input" id="countryCheckBx{{i}}">
+          <label class="custom-control-label" for="countryCheckBx{{i}}">{{country.FullName}}</label>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-9 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <tabset type="pills">
+          <tab heading="Products">
+            <app-product-list-card [products]="Products"></app-product-list-card>
+            <div class="pl-5" *ngIf="Products">
+              <pagination *ngIf="Products.length>0" [totalItems]="pageEvent.length" [(ngModel)]="pageEvent.pageSize"
+                (pageChanged)="loadMoreProducts($event)">
+              </pagination>
+            </div>
+          </tab>
+          <tab (select)="onLinkClick()" heading="Suppliers"></tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1 d-none d-md-block">
+    <ng-container *ngFor="let prod of topProducts">
+      <div routerLink="/product/{{prod.ProductGuid}}" class="topProduct-card p-1 mb-2 bg-white">
+        <img src="{{prod.ProductImages[0] ? prod.ProductImages[0].ImageUrl : '../../../assets/images/load.gif'}}"
+          width="100%" alt="">
+        <br>
+        <small>{{prod.Name}}</small>
+      </div>
+    </ng-container>
+  </div>
+</div>

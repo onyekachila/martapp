@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    <i class="fa fa-edit"></i> Report Product - {{product? product.Name: ''}}
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="row">
+      <div class="col-md-12 alert alert-info" *ngIf="!isUserLoggedIn">
+        You need to be signed in to report an item
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <textarea [formControl]="reason" required class="form-control" placeholder="Reason" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <textarea [formControl]="otherInfo" class="form-control" placeholder="Other Info" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div class="row w100p">
+    <div class="col-md-12">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage | uppercase}}
+      </div>
+      <button (click)="reportProduct()" [disabled]="loading || !isUserLoggedIn || reason.hasError('required')"
+         class="btn btn-primary pull-right">
+        Send Report
+        <i *ngIf="loading" class="fa fa-spin fa-spinner"></i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.text-uppercase{
+  font-size: 24px;
+  color: #d57700;
+}
+
+.abt-content>p{
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.abt-content>input{
+  font-size: 14px;
+  color: darkgrey;
+}
+
+.hoursOperation{
+  margin-top: 40px;
+}
+

@@ -1,0 +1,80 @@
+<div id="parent" class="text-center w-100 h-100">
+  <div id="child">
+    <!-- <p>
+    <a href="https://play.google.com/store/apps/details?id=com.afrimart.afrimartapp.android" target="_blank"
+      class="btn btn-sm btn-outline-primary border-0">
+      <i class="fa fa-mobile-phone"></i>
+      <div>Mobile Apps </div>
+    </a>
+  </p> -->
+    <p style="display: none" id="scrollToTop">
+      <button type="button" (click)="scrollToTop()" class="btn mb-1" data-toggle="tooltip"
+        placement="left" container="body" tooltip="Back to top">
+        <i class="fa fa-caret-up"></i>
+      </button>
+    </p>
+    <p *ngIf="!userService.checkIfUser()">
+      <button routerLink="/auth/login" type="button" class="btn mb-1" data-toggle="tooltip"
+        placement="left" container="body" tooltip="Sign in"><i class="fa fa-user"></i>
+      </button>
+    </p>
+    <p>
+      <button type="button" (click)="openRequestForQuoteDialog()" class="btn mb-1" data-toggle="tooltip"
+        placement="left" container="body" tooltip="Request for quotes">
+        <i class="fa fa-edit"></i>
+      </button>
+    </p>
+    <p>
+      <button type="button" routerLink="/become-a-supplier" class="btn mb-1" data-toggle="tooltip"
+        placement="left" container="body"
+        tooltip="{{(currUser && currUser.CurrentSubscription) ? 'Upgrade Supplier Level' : 'Become a supplier'}}">
+        <i class="fa fa-user-circle-o"></i>
+      </button>
+    </p>
+    <ng-container *ngIf="userService.checkIfUser()">
+      <!-- <p>
+          <button routerLink="/cart" type="button" class="btn mb-1" data-toggle="tooltip" placement="left" container="body" tooltip="My Cart">
+            <i class="fa fa-cart-plus"></i>
+          </button>
+      </p> -->
+      <p>
+        <button type="button" routerLink="/profile" class="btn mb-1" data-toggle="tooltip"
+          placement="left" container="body" tooltip="My Account">
+          <i class="fa fa-user"></i>
+        </button>
+      </p>
+      <p>
+        <button type="button" (click)="openWishlistDialog()" class="btn mb-1" data-toggle="tooltip"
+          placement="left" container="body" tooltip="My Wishlist">
+          <i class="fa fa-heart"></i>
+        </button>
+      </p>
+      <div class="position-relative w-100">
+        <div *ngIf="showNewMessageCount != 0" class="position-absolute"
+          style="top: 0; right: 10px; background: rgba(224, 224, 224, 0.8); border-radius: 50%; padding: .5em;">
+          <h4 class="text-primary">
+            {{showNewMessageCount}}
+          </h4>
+        </div>
+        <button type="button" routerLink="/messaging" class="btn mb-1" data-toggle="tooltip"
+          placement="left" container="body" tooltip="Messages">
+          <i class="fa fa-envelope"></i>
+        </button>
+      </div>
+      <p>
+        <button type="button" routerLink="/invoices" class="btn mb-1" data-toggle="tooltip"
+          placement="left" container="body" tooltip="My Invoice(s)">
+          <i class="fa fa-file"></i>
+        </button>
+      </p>
+    </ng-container>
+  </div>
+  <!-- <div tooltip="Back to top" id="scrollToTop" class="position-absolute"
+    style="bottom: 0px; transform: translate(-130%, -10%); display: none;">
+    <div class="p-3 shadow rounded-circle bg-white" style="width: max-content;">
+      <a (click)="scrollToTop()">
+        <i class="fa fa-caret-up"></i>
+      </a>
+    </div>
+  </div> -->
+</div>

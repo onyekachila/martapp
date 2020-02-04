@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <h6 *ngIf="!products" class="mt-5">Fetching Products <i class="fa fa-spin fa-spinner"></i></h6>
+    <h6 class="mt-5" *ngIf="products && products.length<1">No Product Found .... </h6>
+  </div>
+</div>
+<div class="row" *ngIf="products">
+  <div class="col-md-12" *ngIf="products.length>0">
+    <div class="pull-left">
+      <app-section-title [title]="'products'"></app-section-title>
+    </div>
+    <div class="pull-right">
+      <button [disabled]="viewStyle == 'list'" class="btn btn-sm btn-outline-primary mr-1" (click)="switchViewStyle('list')" title="List View">
+        <i class="fa fa-th-list fa-2x"></i>
+      </button>
+      <button [disabled]="viewStyle == 'grid'" class="btn btn-sm btn-outline-primary" (click)="switchViewStyle('grid')" title="Grid View">
+        <i class="fa fa-th-large fa-2x"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <ng-container *ngIf="viewStyle == 'grid'">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6 px-1" *ngFor="let product of products">
+      <app-single-product-card [product]="product" [showActions]="true"></app-single-product-card>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="viewStyle == 'list'">
+    <div class="col-md-12" *ngFor="let product of products">
+      <app-single-product-list-view [product]="product"></app-single-product-list-view>
+    </div>
+  </ng-container>
+</div>

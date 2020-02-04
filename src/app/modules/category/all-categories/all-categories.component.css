@@ -1,0 +1,28 @@
+.sub-category-name{
+    font-size: 14px;
+}
+.category-name{
+    font-weight: 550;
+    font-size: 1.07em;
+}
+.rm-pad{
+    padding: 0;
+}
+.text-overflow{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+}
+.text-black{
+    color: black;
+}
+.text-black:hover{
+    color: #ee542c;
+}
+.text-grey{
+    color: #4f4f4f;
+}
+.text-grey:hover{
+    color: #ee542c;
+}

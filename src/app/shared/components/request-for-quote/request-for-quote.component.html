@@ -1,0 +1,204 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    <i class="fa fa-edit"></i> Request for quotation
+    <br>
+    <small class="subheader-text">Make a request and get multiple quotes from various suppliers</small>
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>
+        Use the form below to tell suppliers what you need
+      </h4>
+      <p>The more specific your information, the more accurately we can match your request to the appropriate supplier
+      </p>
+    </div>
+  </div>
+  <form class="example-form">
+    <div class="row" *ngIf="!isUserLoggedIn">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nameFormControl">Enter your full name *</label>
+          <input id="nameFormControl" name="nameFormControl" required class="form-control" placeholder="Your Name" [formControl]="nameFormControl">
+          <div class="alert alert-danger" *ngIf="nameFormControl.invalid && (nameFormControl.dirty || nameFormControl.touched) && nameFormControl.hasError('required')">
+            Your name is
+            <strong>required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="emailFormControl">Enter your valid email address *</label>
+        <div class="form-group">
+          <input id="emailFormControl" name="emailFormControl" required class="form-control" placeholder="Email"
+            [formControl]="emailFormControl">
+          <div class="alert alert-danger"
+            *ngIf="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)">
+            <div *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </div>
+            <div *ngIf="emailFormControl.hasError('required')">
+              Email is
+              <strong>required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="productnameFormControl">Enter the name of the product you are interested in *</label>
+          <input id="productnameFormControl" name="productnameFormControl" required class="form-control" placeholder="Product Name" [formControl]="productnameFormControl">
+          <div class="alert alert-danger" *ngIf="productnameFormControl.invalid && (productnameFormControl.dirty || productnameFormControl.touched) && productnameFormControl.hasError('required')">
+            Product name is
+            <strong>required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="productdescriptionFormControl">Enter a full description/specification of the product you are interested *</label>
+          <textarea id="productdescriptionFormControl" name="productdescriptionFormControl" required class="form-control" placeholder="Product Description"
+            [formControl]="productdescriptionFormControl" cols="30" rows="10"></textarea>
+          <div class="alert alert-danger" *ngIf="productdescriptionFormControl.invalid && (productdescriptionFormControl.dirty || productdescriptionFormControl.touched) && productdescriptionFormControl.hasError('required')">
+            Product description is
+            <strong>required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="form-group">
+          <label for="unitsFormControl">Select product unit of purchase *</label>
+          <select id="unitsFormControl" name="unitsFormControl" class="custom-select" placeholder="Select Units" [formControl]="unitsFormControl">
+            <option *ngFor="let unit of productUnits" [value]="unit.Id">{{unit.Name}}</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="unitsFormControl.invalid && (unitsFormControl.dirty || unitsFormControl.touched) && unitsFormControl.hasError('required')">
+            Product unit is
+            <strong>required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="form-group">
+          <label for="qtyFormControl">Enter number of products to purchase *</label>
+          <input id="qtyFormControl" name="qtyFormControl" required class="form-control" placeholder="Quantity" type="number" [formControl]="qtyFormControl">
+          <div class="alert alert-danger" *ngIf="qtyFormControl.invalid && (qtyFormControl.dirty || qtyFormControl.touched) && qtyFormControl.hasError('required')">
+            Product quantity is
+            <strong>required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <div class="form-group">
+          <label for="currencyFormControl">Select preferred purchase currency *</label>
+          <select id="currencyFormControl" name="currencyFormControl" class="custom-select" required placeholder="Select Currency" [formControl]="currencyFormControl" >
+            <option *ngFor="let currency of currencies" value="{{currency.Id}}">{{currency.Name}} - {{currency.Symbol}}</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="currencyFormControl.invalid && (currencyFormControl.dirty || currencyFormControl.touched) && !currencyFormControl.value">
+            Your default currency is
+            <strong>required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+          <label for="minPricePerUnitFormControl">Enter the minimum price you are willing to pay per product *</label>
+        <div class="form-group input-group">
+          <input id="minPricePerUnitFormControl" name="minPricePerUnitFormControl" class="form-control" placeholder="Min. Price" type="number" id="minPricePerUnitFormControl"
+            [formControl]="minPricePerUnitFormControl">
+          <div class="input-group-append text-success" *ngIf="currencyFormControl.value">
+            <label class="input-group-text" for="minPricePerUnitFormControl">
+              <strong> {{selectedCurrency?selectedCurrency.Symbol:''}}{{minPricePerUnitFormControl.value | price}}</strong>
+            </label>
+          </div>
+          <div class="alert alert-danger" *ngIf="minPricePerUnitFormControl.invalid && (minPricePerUnitFormControl.dirty || minPricePerUnitFormControl.touched) && minPricePerUnitFormControl.hasError('required')">
+            Please specify the minimum price per unit you are willing to pay
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+          <label for="maxPricePerUnitFormControl">Enter the maximum price you are willing to pay per product *</label>
+        <div class="form-group input-group">
+          <input id="maxPricePerUnitFormControl" name="maxPricePerUnitFormControl" class="form-control" placeholder="Max. Price" type="number" id="maxPricePerUnitFormControl"
+            [formControl]="maxPricePerUnitFormControl">
+          <div class="input-group-append text-success" *ngIf="currencyFormControl.value">
+            <label class="input-group-text" for="maxPricePerUnitFormControl">
+              <strong> {{selectedCurrency?selectedCurrency.Symbol:''}}{{maxPricePerUnitFormControl.value | price}}</strong>
+            </label>
+          </div>
+          <div class="alert alert-danger" *ngIf="maxPricePerUnitFormControl.invalid && (maxPricePerUnitFormControl.dirty || maxPricePerUnitFormControl.touched) && maxPricePerUnitFormControl.hasError('required')">
+            Please specify the maximum price per unit you are willing to pay
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h6>Select Regions
+          <i class="fa fa-long-arrow-right"></i>
+        </h6>
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action"
+            [ngClass]="{'active': selectedCountries.length === countries.length}">
+            <div class="custom-control custom-checkbox">
+              <input [checked]="selectedCountries.length === countries.length"
+                (change)="continent_onChange($event.target)" type="checkbox" class="custom-control-input"
+                id="allCountriesCheckBx">
+              <label class="custom-control-label" for="allCountriesCheckBx">All countries</label>
+            </div>
+          </a>
+          <a (click)="region_onChange(region)" *ngFor="let region of regions"
+            class="list-group-item list-group-item-action">{{ region }}</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h6>Select Countries *
+          <i class="fa fa-long-arrow-right"></i>
+        </h6>
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" *ngFor="let country of loadedCountries; let i=index">
+            <div class="custom-control custom-checkbox">
+              <input [checked]="selectedCountries.indexOf(country) !== -1"
+                (change)="country_onChange(country, $event.target)" type="checkbox" class="custom-control-input"
+                id="countryCheckBx{{i}}">
+              <label class="custom-control-label" for="countryCheckBx{{i}}">{{country.FullName}}</label>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h6>Selected Countries</h6>
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" *ngFor="let country of selectedCountries">
+            {{country.FullName}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12 alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage | uppercase}}
+      </div>
+      <div class="col-md-12">
+        <button [disabled]="loading" (click)="postRFQ()" class="btn btn-primary pull-right">
+          Send Request
+          <i *ngIf="!loading" class="fa fa-paper-plane-o ml-3"></i>
+          <i *ngIf="loading" class="fa fa-spin fa-spinner"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">close</button>
+</div>

@@ -1,0 +1,11 @@
+.title {
+    margin-bottom: 2px;
+    font-size: 17px;
+    font-weight: 600;
+}
+.single-card-store .img-thumbnail {
+    padding: 7px !important
+}
+.single-card-store {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
